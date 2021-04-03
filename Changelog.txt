@@ -1,0 +1,2 @@
+03/04 - Added home page(not logged in). (Bulbuc Razvan)  
+30/03 - Added skeleton of MVC application. (Bulbuc Razvan)
