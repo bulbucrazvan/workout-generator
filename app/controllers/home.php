@@ -3,10 +3,19 @@
 class Home extends Controller {
     
     public function index($name = 'default'){
-        $user = $this->model('User');
-        $user->setName($name);
+        $this->view('home/index');
+    }
 
-        $this->view('index', ['name' => $user->getName()]);
+    public function about(){
+        $this->view('home/about');
+    }
+
+    public function login(){
+        $this->view('home/login');
+    }
+
+    public function register(){
+        $this->view('home/register');
     }
 }
 
