@@ -1,0 +1,85 @@
+body {
+    background-color: black;
+    height: 90vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.button {
+    background-color: rgb(110, 13, 7);
+    background-color: black;
+    color: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 0.5em;
+    font-size: 2vh;
+    width: 40%;
+}
+
+.button:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.last-workout-btn {
+    margin-bottom: 3vh;
+}
+
+.main-bubble {
+    background-color: rgb(110, 13, 7);
+    background-image: url("/project/public/images/home-image-1.jfif");
+    background-size: cover;
+    border-radius: 0.5em;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1% 1%;
+    flex-grow: 1;
+}
+
+.inner-bubble {
+    width: 30%;
+    height: 20vh;
+    background-color: rgb(110,13,7);
+    /* background-image: url("/project/public/images/home-image-1.jfif");
+    background-size: cover; */
+    border-radius: 10vh;
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    margin: 2vh;
+    font-size: 3vh;
+}
+
+
+
+@media screen and (max-width: 1024px){
+    body {
+        height: 100%;
+    }
+
+    .inner-bubble {
+        height: 30vh;
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 768px){
+
+    .inner-bubble {
+        height: 20vh;
+        width: 80%;
+        font-size: 3vh;
+    }
+    
+    .button {
+        font-size: 3vh;
+    }
+}
+

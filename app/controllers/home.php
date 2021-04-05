@@ -17,6 +17,10 @@ class Home extends Controller {
     public function register(){
         $this->view('home/register');
     }
+
+    public function home(){
+        $this->view('home/home');
+    }
 }
 
 ?>
