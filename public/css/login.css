@@ -40,6 +40,7 @@ input {
     padding: 1.5% 1.5%;
     border: none;
     border-bottom: 4px solid rgb(110, 13, 7);
+    font-size: 70%;
 }
 
 input[type=submit] {

@@ -14,6 +14,7 @@
                     <a href="/project/public"> Home </a>
                     <a href="/project/public/home/about"> About </a>
                     <a href="/project/public/home/login"> Login </a>
+                    <div class="dropdown-blur"> </div>
             </div>
         </div>
     </nav>
