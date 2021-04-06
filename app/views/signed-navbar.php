@@ -6,12 +6,14 @@
         </div>
         <ul class="navbar__list">
             <li class="navbar__list-item"> <a class="navbar__list-anchor" href="/project/public/home/about"> My Workouts </a> </li>
-            <li class="navbar__list-item"> <a class="navbar__list-anchor" href="/project/public/home/login"> Global Statistics </a> </li>
+            <li class="navbar__list-item"> <a class="navbar__list-anchor" href="/project/public/home/globalStatistics"> Global Statistics </a> </li>
             <li class="navbar__list-item navbar__dropdown navbar__dropdown--desktop">
-                <button id="accountBtn" class="navbar__button navbar__button--desktop"> <img id="accIcon" src="/project/public/images/account-icon.svg"></button>    
+                <button id="accountBtn" class="navbar__button navbar__button--desktop"> <img id="accIcon" src="/project/public/images/account-icon.svg"></button>
+                <div id="accountButtonBlur" class="navbar__dropdown-blur navbar__dropdown-blur--top navbar__dropdown-blur--invisible"></div>    
                 <div id="accountDropDown" class="navbar__dropdown-content navbar__dropdown-content--desktop">
+                    <a href="/project/public"> Settings </a>
                     <a href="/project/public"> Logout </a>
-                    <div id="accountBlur" class="navbar__dropdown-blur navbar__dropdown-blur--invisible"></div>
+                    <div id="accountBlur" class="navbar__dropdown-blur navbar__dropdown-blur--bottom navbar__dropdown-blur--invisible"></div>
                 </div>
             </li>
         </ul>
@@ -23,7 +25,7 @@
                     <a href="/project/public/home/about"> Global Statistics</a>
                     <a href="/project/public/home/login"> Profile </a>
                     <a href="/project/public/home/login"> Logout </a>
-                    <div class="navbar__dropdown-blur"></div>
+                    <div class="navbar__dropdown-blur navbar__dropdown-blur--bottom"></div>
             </div>
         </div>
     </nav>

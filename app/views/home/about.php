@@ -7,7 +7,7 @@
     <title>About</title>
     <link rel="stylesheet" href="/project/public/css/about.css">
     <link rel="stylesheet" href="/project/public/css/footer.css">
-    <link rel="stylesheet" href="/project/public/css/unsigned-navbar.css">
+    <link rel="stylesheet" href="/project/public/css/navbar.css">
 </head>
 <body>
     <?php

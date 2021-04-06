@@ -15,26 +15,29 @@
     ?>
     <main>
         <section class="main-bubble">
-            <div class="inner-bubble last-workout">
-                <div>
+            <div class="main-bubble__inner-bubble main-bubble__inner-bubble--last-workout main-bubble__inner-bubble--has-button">
+                <div class=>
                     <p> Last workout: </p>
                     <p> Chest training </p>
                 </div>
-                <button type="button" class="button last-workout-btn"> Start </button>
+                <button type="button" class="inner-bubble__button inner-bubble__button--last-workout"> Start </button>
             </div>
-            <div class="inner-bubble">
+            <div class="main-bubble__inner-bubble">
                 <p> Current streak </p>
+                <p> [User dependent] </p>
             </div>
-            <div class="inner-bubble">
+            <div class="main-bubble__inner-bubble">
                 <p> Longest streak </p>
+                <p> [User dependent] </p>
             </div>
-            <div class="inner-bubble">
-                <p> Dummy </p>
+            <div class="main-bubble__inner-bubble main-bubble__inner-bubble--has-button">
+                <p> Workout history </p>
+                <button type="button" class="inner-bubble__button"> View </button>
             </div>
-            <div class="inner-bubble">
+            <div class="main-bubble__inner-bubble">
                 Dummy
             </div>
-            <div class="inner-bubble">
+            <div class="main-bubble__inner-bubble">
                 Dummy
             </div>
         </section>

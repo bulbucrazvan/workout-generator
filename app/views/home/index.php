@@ -7,7 +7,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="/project/public/css/home.css">
     <link rel="stylesheet" href="/project/public/css/footer.css">
-    <link rel="stylesheet" href="/project/public/css/unsigned-navbar.css">
+    <link rel="stylesheet" href="/project/public/css/navbar.css">
 </head>
 <body>
     <?php
