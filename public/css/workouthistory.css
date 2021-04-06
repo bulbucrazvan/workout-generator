@@ -81,7 +81,26 @@ select {
     border-right: 2px solid black;
 }
 
-.list-area__list li:nth-child(even){
+.list-area__form {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.list-area__button {
+    font-size: 3vh;
+    color: white;
+    text-shadow: 1px 1px black;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.list-area__button--start {
+    background-color: rgba(18, 130, 26);
+}
+
+.list-area__button--view {
     background-color: rgba(0, 0, 0, 0.5);
 }
 

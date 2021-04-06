@@ -25,6 +25,10 @@ class Home extends Controller {
     public function globalStatistics(){
         $this->view('home/globalStatistics');
     }
+
+    public function workoutHistory(){
+        $this->view('home/workoutHistory');
+    }
 }
 
 ?>

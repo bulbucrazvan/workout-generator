@@ -15,7 +15,7 @@
     ?>
     <main>
         <div class="outer-box">
-            <form class="form-box">
+            <form class="form-box" action="/project/public/home/home">
                 <input type="text" placeholder="Username"></br>
                 <input type="password" placeholder="Password"></br>
                 <input type="submit" value="Login">
