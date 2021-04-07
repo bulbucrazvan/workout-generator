@@ -1,20 +1,20 @@
 <header>
     <nav class="navbar">
-        <div class="navbar-left-side">
-            <a href="/project/public"> <img id="navbar-img" src="/project/public/images/logoleft.png"> </a>
-            <a class="navbar-left-side-home" href="/project/public"> Home </a> 
+        <div class="navbar__left-side">
+            <a href="/project/public"> <img class="navbar__img navbar__img--left" src="/project/public/images/logoleft.png"> </a>
+            <a class="navbar__list-item navbar__list-anchor" href="/project/public"> Home </a> 
         </div>
-        <ul class="navbar-list">
-            <li class="navbar-list-item"> <a href="/project/public/home/about"> About </a> </li>
-            <li class="navbar-list-item"> <a href="/project/public/home/login"> Login </a> </li>
+        <ul class="navbar__list">
+            <li class="navbar__list-item"> <a class="navbar__list-anchor"href="/project/public/home/about"> About </a> </li>
+            <li class="navbar__list-item"> <a class="navbar__list-anchor" href="/project/public/home/login"> Login </a> </li>
         </ul>
-        <div class="dropdown">
-            <button id="menuBtn" class="dropbtn"><img id="dropDwnIcon" src="/project/public/images/hamburger-icon.svg"></button>
-            <div id="dropDwn" class="dropdown-content">
+        <div class="navbar__dropdown navbar__dropdown--phone">
+            <button id="menuBtn" class="navbar__button navbar__button--phone"><img id="dropDownIcon" src="/project/public/images/hamburger-icon.svg"></button>
+            <div id="dropDown" class="navbar__dropdown-content navbar__dropdown-content--phone">
                     <a href="/project/public"> Home </a>
                     <a href="/project/public/home/about"> About </a>
                     <a href="/project/public/home/login"> Login </a>
-                    <div class="dropdown-blur"> </div>
+                    <div class="navbar__dropdown-blur navbar__dropdown-blur--bottom"> </div>
             </div>
         </div>
     </nav>

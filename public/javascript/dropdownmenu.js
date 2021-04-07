@@ -1,6 +1,6 @@
 let menuBtn = document.getElementById("menuBtn");
-let dropDown = document.getElementById("dropDwn");
-let dropIcon = document.getElementById("dropDwnIcon");
+let dropDown = document.getElementById("dropDown");
+let dropIcon = document.getElementById("dropDownIcon");
 
 document.body.addEventListener('click', onBodyClick);
 
@@ -9,20 +9,20 @@ wasClicked = false;
 function onBodyClick(e){
     if (menuBtn.contains(e.target)){
         if (wasClicked){
-            menuBtn.classList.remove('dropBtn-clicked');
-            dropDown.classList.remove('dropdown-content-shown');
-            dropIcon.classList.remove('dropDwnIcon-pressed');
+            menuBtn.classList.remove('navbar__button--clicked');
+            dropDown.classList.remove('navbar__dropdown-content--visible');
+            dropIcon.classList.remove('navbar__dropdown-icon--pressed');
         }
         else {
-            menuBtn.classList.add('dropBtn-clicked');
-            dropDown.classList.add('dropdown-content-shown');
-            dropIcon.classList.add('dropDwnIcon-pressed');
+            menuBtn.classList.add('navbar__button--clicked');
+            dropDown.classList.add('navbar__dropdown-content--visible');
+            dropIcon.classList.add('navbar__dropdown-icon--pressed');
         }
         wasClicked = !wasClicked;
     }
     else {
-        menuBtn.classList.remove('dropBtn-clicked');
-        dropDown.classList.remove('dropdown-content-shown');
-        dropIcon.classList.remove('dropDwnIcon-pressed');
+        menuBtn.classList.remove('navbar__button--clicked');
+        dropDown.classList.remove('navbar__dropdown-content--visible');
+        dropIcon.classList.remove('navbar__dropdown-icon--pressed');
     }
 }

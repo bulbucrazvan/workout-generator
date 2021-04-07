@@ -7,7 +7,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="/project/public/css/login.css">
     <link rel="stylesheet" href="/project/public/css/footer.css">
-    <link rel="stylesheet" href="/project/public/css/unsigned-navbar.css">
+    <link rel="stylesheet" href="/project/public/css/navbar.css">
 </head>
 <body>
     <?php
@@ -15,7 +15,7 @@
     ?>
     <main>
         <div class="outer-box">
-            <form class="form-box">
+            <form class="form-box" action="/project/public/home/home">
                 <input type="text" placeholder="Username"></br>
                 <input type="password" placeholder="Password"></br>
                 <input type="submit" value="Login">

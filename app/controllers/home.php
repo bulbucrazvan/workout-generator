@@ -17,6 +17,18 @@ class Home extends Controller {
     public function register(){
         $this->view('home/register');
     }
+
+    public function home(){
+        $this->view('home/home');
+    }
+
+    public function globalStatistics(){
+        $this->view('home/globalStatistics');
+    }
+
+    public function workoutHistory(){
+        $this->view('home/workoutHistory');
+    }
 }
 
 ?>

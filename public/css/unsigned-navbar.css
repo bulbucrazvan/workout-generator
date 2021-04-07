@@ -4,7 +4,7 @@
 }
 
 .navbar {
-    border-radius: 0.5em;
+    border-radius: 0.5rem;
     position: relative;
     display: flex;
     align-items: center;
@@ -12,7 +12,7 @@
     background-color: rgb(110, 13, 7);
     font-size: 2vw;
     font-family: "Roboto", sans-serif;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.5rem;
 }
 
 .navbar-left-side {
@@ -30,6 +30,7 @@
     list-style-type: none;
     padding-right: 2em;
     display: flex;
+    align-items: center;
 }
 
 .navbar-list-item a, .navbar-left-side-home {
@@ -43,6 +44,15 @@
 
 .navbar-list-item a:hover, .navbar-left-side-home:hover {
     color: white;
+}
+
+#accountBtn {
+    background-color: rgb(110, 13, 7);
+    border: none;
+}
+
+#accIcon {
+    height: 5vh;
 }
 
 .dropdown {

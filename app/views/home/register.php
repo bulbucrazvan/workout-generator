@@ -7,7 +7,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="/project/public/css/login.css">
     <link rel="stylesheet" href="/project/public/css/footer.css">
-    <link rel="stylesheet" href="/project/public/css/unsigned-navbar.css">
+    <link rel="stylesheet" href="/project/public/css/navbar.css">
 </head>
 <body>
     <?php
