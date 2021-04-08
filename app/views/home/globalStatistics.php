@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="/project/public/css/font.css">
-    <link rel="stylesheet" href="/project/public/css/globalstatistics.css">
+    <link rel="stylesheet" href="/project/public/css/main-framework.css">
     <link rel="stylesheet" href="/project/public/css/footer.css">
     <link rel="stylesheet" href="/project/public/css/navbar.css">
 </head>
@@ -20,7 +20,7 @@
                 <p> Global Statistics </p>
                 <form>
                 <label> Rank by </label>
-                <select>
+                <select class="combo-box">
                     <option> Current streak </option>
                     <option> Longest streak </option>
                 </select> 
@@ -54,3 +54,9 @@
     ?>
 </body>
 </html>
+
+<script src="/project/public/javascript/listbackgroundselector.js">
+</script>
+
+<script src="/project/public/javascript/comboboxclick.js">
+</script>

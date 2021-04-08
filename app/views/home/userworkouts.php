@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Workouts</title>
     <link rel="stylesheet" href="/project/public/css/font.css">
     <link rel="stylesheet" href="/project/public/css/main-framework.css">
+    <link rel="stylesheet" href="/project/public/css/user-workouts.css">
     <link rel="stylesheet" href="/project/public/css/footer.css">
     <link rel="stylesheet" href="/project/public/css/navbar.css">
 </head>
@@ -17,12 +18,22 @@
     <main>
         <section class="main-bubble">
             <div class="main-bubble__area main-bubble__area--filter-area"> 
-                <p> Workout History </p>
+                <p> My Workouts </p>
                 <form>
-                <label> Sort by </label>
+                <label> Filter by </label>
                 <select id="comboBox" class="combo-box">
-                    <option> Most recent </option>
-                    <option> Least recent </option>
+                    <option> All </option>
+                    <optgroup label="Location">
+                        <option> Outside </option>
+                        <option> Gym </option>
+                        <option> Home </option>
+                    </optgroup>
+                    <optgroup label="Muscle Group">
+                        <option> Chest </option>
+                        <option> Back </option>
+                    </optgroup>
+                    <optgroup label="More to follow..">
+                    </optgroup>
                 </select> 
                 </form>
             </div>
@@ -67,10 +78,17 @@
                     <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
                     <form class="list-area__form">
                         <button class="list-area__button list-area__button--start" type="submit">Start</button>
-                        <button class="list-area__button list-area__button--view" type="submit">View</button>
+                        <button id="test" class="list-area__button list-area__button--view" type="button">View</button>
                     </form>
                 </li>
                 </ul>
+            </div>
+            <div class="main-bubble__area main-bubble__area--new-workout">
+                <p> Create new workout </p>
+                <div>
+                    <button> Manual </button>
+                    <button> Generate workout </button>
+                </div>
             </div>
         </section>
     </main>
@@ -79,6 +97,15 @@
     ?>
 </body>
 </html>
+
+<script>
+let workoutHistory = document.getElementById("test");
+workoutHistory.addEventListener('click', onClick);
+
+function onClick(){
+    window.location.href = "/project/public/home/workoutViewer";
+}
+</script>
 
 <script src="/project/public/javascript/listbackgroundselector.js">
 </script>

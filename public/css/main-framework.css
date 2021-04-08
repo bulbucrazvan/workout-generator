@@ -17,6 +17,8 @@ main {
 
 .main-bubble__area {
     position: relative;
+    top: 2%;
+    margin: 0 2%;
     background-color: rgba(110, 13, 7, 0.9);
     backdrop-filter: blur(1px);
     border: 1px solid black;
@@ -27,23 +29,36 @@ main {
 
 .main-bubble__area--filter-area {
     height: 7%;
-    margin: 0 2%;
-    top: 2%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     font-size: 3vh;
 }
 
-select {
-    font-size: 2vh;
+.combo-box {
+    margin-left: 1vw;
+    font-size: 2.3vh;
     border: 1px solid black;
     border-radius: 0.5rem;
+    color: white;
+    background-color: rgba(15, 15, 15, 0.7);
+    backdrop-filter: blur(1px);
+    padding: 0 0.2vw;
+}
+
+.combo-box--clicked {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+option {
+    background-color: rgba(110, 13, 7, 0.9);
+    backdrop-filter: blur(1px);
+    border: 1px solid black;
+    padding: 5vh 5vh;
 }
 
 .main-bubble__area--list-area {
-    top: 2%;
-    margin: 0% 2%;
     height: 85%;
     display: flex;
     justify-content: center;
@@ -96,6 +111,10 @@ select {
     border-radius: 0.5rem;
 }
 
+.list-area__button:hover {
+    cursor: pointer;
+}
+
 .list-area__button--start {
     background-color: rgba(18, 130, 26);
 }
@@ -123,5 +142,9 @@ select {
 @media screen and (max-width: 768px) {
     .main-bubble__area--filter-area {
         font-size: 2.5vh;
+    }
+
+    .list-area__button {
+        font-size : 2.5h;
     }
 }

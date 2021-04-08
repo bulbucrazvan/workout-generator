@@ -1,0 +1,50 @@
+optgroup {
+    background: rgba(15, 15, 15, 0.9);
+}
+
+.main-bubble__area--list-area {
+    height: 75%;
+    display: flex;
+    justify-content: center;
+}
+
+.main-bubble__area--new-workout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 3vh;
+}
+
+.main-bubble__area--new-workout p {
+    margin: 0;
+    padding-top: 0.5vh;
+}
+
+.main-bubble__area--new-workout div {
+    width: 100%;
+    margin-bottom: 1vh;
+    display: flex;
+    justify-content: center;
+}
+
+.main-bubble__area--new-workout button {
+    margin: 1vh;
+    padding: 0.5vh 0.5vw;
+    font-size: 2vh;
+    color: white;
+    background-color: rgba(15, 15, 15, 0.7);
+    backdrop-filter: blur(1px);
+    border: 1px solid black;
+    border-radius: 0.5rem;
+}
+
+.main-bubble__area--new-workout button:hover {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .main-bubble__area--new-workout button {
+        font-size: 2.5vh;
+    }
+}

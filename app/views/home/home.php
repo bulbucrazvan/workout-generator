@@ -36,7 +36,8 @@
                 <button id="wrkOutHistory" type="button" class="inner-bubble__button"> View </button>
             </div>
             <div class="main-bubble__inner-bubble">
-                Dummy
+                <p> Workouts completed </p>
+                <p> [User dependent] </p>
             </div>
             <div class="main-bubble__inner-bubble">
                 Dummy
@@ -56,6 +57,6 @@ startWorkout.addEventListener('click', onClick);
 workoutHistory.addEventListener('click', onClick);
 
 function onClick(){
-    window.location.href = "/project/public/home/workoutHistory"
+    window.location.href = "/project/public/home/workoutHistory";
 }
 </script>
