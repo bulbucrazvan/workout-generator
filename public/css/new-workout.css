@@ -1,0 +1,24 @@
+.main-bubble__area--list-area {
+    height: 75%;
+}
+
+.main-bubble__area--button-area {
+    height: 12%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.button-area__button {
+    margin: 0 2vw;
+    border: 1px solid black;
+}
+
+.button-area__button--save {
+    background-color: rgba(18, 130, 26);
+}
+
+.button-area__button--new {
+    background-color: rgba(0, 0, 0, 0.4);
+}

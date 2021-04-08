@@ -86,8 +86,8 @@
             <div class="main-bubble__area main-bubble__area--new-workout">
                 <p> Create new workout </p>
                 <div>
-                    <button> Manual </button>
-                    <button> Generate workout </button>
+                    <button id="manualWrkt"> Manual </button>
+                    <button id="generateWrkt"> Generate workout </button>
                 </div>
             </div>
         </section>
@@ -100,11 +100,20 @@
 
 <script>
 let workoutHistory = document.getElementById("test");
-workoutHistory.addEventListener('click', onClick);
+let generate = document.getElementById("generateWrkt");
+let manual = document.getElementById("manualWrkt");
 
-function onClick(){
+manual.addEventListener('click', function() {
+    window.location.href = "/project/public/home/manualWorkout";
+})
+
+generate.addEventListener('click', function() {
+    window.location.href = "/project/public/home/generateWorkout";
+})
+
+workoutHistory.addEventListener('click', function() {
     window.location.href = "/project/public/home/workoutViewer";
-}
+});
 </script>
 
 <script src="/project/public/javascript/listbackgroundselector.js">

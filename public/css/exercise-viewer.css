@@ -1,0 +1,80 @@
+body {
+    background-color: black;
+}
+
+.main-bubble__area--exercise-name-area {
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vh;
+}
+
+.main-bubble__area--exercise-name-area p {
+    margin: 0;
+}
+
+.main-bubble__area--exercise-description-area {
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+}
+
+.exercise-description {
+    background-color: rgba(15, 15, 15, 0.8);
+    border-radius: 0.5rem;
+    height: 48%;
+    margin: 1vh;
+    display: flex;
+    align-items: center;
+}
+
+.exercise-description__video-half {
+    justify-content: space-between;
+    height: 65%;
+}
+
+.video-half__video {
+    height: 90%;
+    width: 50%;
+    margin-left: 2%;
+}
+
+.video-half__description {
+    font-size: 2.2vh;
+    width: 45%;
+    margin-right: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.video-half__description div {
+    display: flex;
+    align-items: center;
+}
+
+.video-half__description p {
+    font-size: 2vh;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: lighter;
+    margin: 0;
+    margin-left: 1vw;
+}
+
+.exercise-description__instructions-half {
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.exercise-description__instructions-half p:nth-child(2) {
+    font-family: "Times New Roman", Times, serif;
+    font-weight: lighter;
+    font-size: 2vh;
+}
+
+.exercise-description__instructions-half p {
+    font-size: 3vh;
+    margin: 0 1vw;
+}

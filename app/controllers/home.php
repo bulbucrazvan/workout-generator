@@ -38,6 +38,21 @@ class Home extends Controller {
         $this->view('home/workoutViewer');
     }
 
+    public function exerciseViewer(){
+        $this->view('home/exerciseViewer');
+    }
+
+    public function generateWorkout(){
+        $this->view('home/generateWorkout');
+    }
+
+    public function generatedWorkout() {
+        $this->view('home/generatedWorkout');
+    }
+
+    public function manualWorkout() {
+        $this->view('home/manualWorkout');
+    }
 }
 
 ?>
