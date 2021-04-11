@@ -30,7 +30,7 @@
                 <div class="video-half__controls">
                     <p> Time remaining: ... </p>
                     <div class="controls__button-area">
-                        <button class="button-area__button button-area__button--start" type="button"> Start </buton>
+                        <button class="button-area__button button-area__button--start" type="button"> Start </button>
                         <button class="button-area__button button-area__button--pause" type="button"> Pause </button>
                         <button class="button-area__button button-area__button--stop" type="button"> Stop </button>
                     </div>
