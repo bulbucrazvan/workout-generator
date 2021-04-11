@@ -19,7 +19,7 @@
     <main>
         <section class="main-bubble">
             <div class="main-bubble__area main-bubble__area--filter-area"> 
-                <p class="filter-area__workout-name"> Generated Workout </p>
+                <p class="filter-area__workout-name"> Manual Workout </p>
                 <div id="addExerciseArea" class="filter-area__add-exercise-area">
                     <button id="addExerciseButton" class="add-exercise-area__button"> Add exercise </button>
                     <div class="add-exercise-area__dropdown add-exercise-area__blur-area"></div>

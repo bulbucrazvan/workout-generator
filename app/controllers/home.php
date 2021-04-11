@@ -53,6 +53,14 @@ class Home extends Controller {
     public function manualWorkout() {
         $this->view('home/manualWorkout');
     }
+
+    public function startWorkout() {
+        $this->view('home/startWorkout');
+    }
+
+    public function settings() {
+        $this->view('home/settings');
+    }
 }
 
 ?>

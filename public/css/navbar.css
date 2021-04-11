@@ -22,6 +22,12 @@
     justify-content: space-around;
 }
 
+.img-anchor {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
 .navbar__img {
     height: 10vh;
 }

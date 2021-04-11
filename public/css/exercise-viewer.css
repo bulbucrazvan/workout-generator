@@ -78,3 +78,13 @@ body {
     font-size: 3vh;
     margin: 0 1vw;
 }
+
+@media screen and (max-width: 425px) {
+    .exercise-description__instructions-half p {
+        font-size: 3.5vw;
+    }
+
+    .exercise-description__instructions-half p:nth-child(2) {
+        font-size: 3vw;
+    }
+}

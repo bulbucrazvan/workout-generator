@@ -1,0 +1,58 @@
+.main-bubble__area--current-exercise-area {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 3vh;
+    height: 10%;
+}
+
+.main-bubble__area--current-exercise-area p {
+    margin: 0;
+}
+
+.video-half__controls {
+    width: 45%;
+    height: 60%;
+    margin-right: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 2.5vh;
+}
+
+.controls__button-area {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.button-area__button {
+    margin: 0.5vh 1vw;
+    padding: 0.7vh;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    color: white;
+    font-size: 2vh;
+}
+
+.button-area__button--start {
+    background-color: rgba(18, 130, 26);
+}
+
+.button-area__button--pause {
+    background-color: coral;
+}
+
+.button-area__button--stop {
+    background-color: red;
+}
+
+.button-area__button--previous {
+    background-color: rgba(110, 13, 13, 0.7);
+}
+
+.button-area__button--next {
+    background-color: rgba(110, 13, 13, 0.7);
+}

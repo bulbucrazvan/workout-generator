@@ -42,43 +42,43 @@
                 <li> 
                     <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
                     <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="submit">Start</button>
-                        <button class="list-area__button list-area__button--view" type="submit">View</button>
+                        <button class="list-area__button list-area__button--start" type="button">Start</button>
+                        <button class="list-area__button list-area__button--view" type="button">View</button>
                     </form>
                 </li>
                 <li> 
                     <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
                     <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="submit">Start</button>
-                        <button class="list-area__button list-area__button--view" type="submit">View</button>
+                        <button class="list-area__button list-area__button--start" type="button">Start</button>
+                        <button class="list-area__button list-area__button--view" type="button">View</button>
                     </form>
                 </li>
                 <li> 
                     <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
                     <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="submit">Start</button>
-                        <button class="list-area__button list-area__button--view" type="submit">View</button>
+                        <button class="list-area__button list-area__button--start" type="button">Start</button>
+                        <button class="list-area__button list-area__button--view" type="button">View</button>
                     </form>
                 </li>
                 <li> 
                     <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
                     <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="submit">Start</button>
-                        <button class="list-area__button list-area__button--view" type="submit">View</button>
+                        <button class="list-area__button list-area__button--start" type="button">Start</button>
+                        <button class="list-area__button list-area__button--view" type="button">View</button>
                     </form>
                 </li>
                 <li> 
                     <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
                     <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="submit">Start</button>
-                        <button class="list-area__button list-area__button--view" type="submit">View</button>
+                        <button class="list-area__button list-area__button--start" type="button">Start</button>
+                        <button class="list-area__button list-area__button--view" type="button">View</button>
                     </form>
                 </li>
                 <li> 
                     <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
                     <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="submit">Start</button>
-                        <button id="test" class="list-area__button list-area__button--view" type="button">View</button>
+                        <button class="list-area__button list-area__button--start" type="button">Start</button>
+                        <button class="list-area__button list-area__button--view" type="button">View</button>
                     </form>
                 </li>
                 </ul>
@@ -99,7 +99,6 @@
 </html>
 
 <script>
-let workoutHistory = document.getElementById("test");
 let generate = document.getElementById("generateWrkt");
 let manual = document.getElementById("manualWrkt");
 
@@ -111,9 +110,18 @@ generate.addEventListener('click', function() {
     window.location.href = "/project/public/home/generateWorkout";
 })
 
-workoutHistory.addEventListener('click', function() {
-    window.location.href = "/project/public/home/workoutViewer";
-});
+let viewBtns = document.getElementsByClassName("list-area__button--view");
+let startBtns = document.getElementsByClassName("list-area__button--start");
+
+    for (var i = 0; i < viewBtns.length; i++){
+        viewBtns[i].addEventListener('click', function() {
+            window.location.href = "/project/public/home/workoutViewer";
+        });
+
+        startBtns[i].addEventListener('click', function() {
+            window.location.href = "/project/public/home/startWorkout";
+        })
+    }
 </script>
 
 <script src="/project/public/javascript/listbackgroundselector.js">

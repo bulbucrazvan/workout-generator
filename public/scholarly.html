@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/scholarly.css">
+    <title>Scholarly Report</title>
+</head>
+<body prefix="schema: http://schema.org">
+    <article resource="#" typeof="schema:ScholarlyArticle">
+        <h1 property="schema:name"> Workout Generator </h1>
+        <div role="contentinfo">
+            <section typeof="sa:AuthorsList">
+                <h2> Authors </h2>
+                <ul>
+                    <li typeof="sa:ContributorRole" property="schema:author">
+                        <span typeof="schema:Person">
+                            <meta property="schema:givenName" content="Razvan">
+                            <meta propert="schema:familyName" content="Bulbuc">
+                            <span property="schema:name"> Bulbuc Razvan </span>
+                        </span>
+                    </li>
+                </ul>
+            </section>
+            <section typeof="sa:Affiliations">
+                <h2> Affiliations </h2>
+                <ul>
+                    <li id="sa">
+                        <span typeof="schema:Organization" resource="https://www.info.uaic.ro/">
+                            <span property="schema:name">Faculty of Computer Science</span>
+                            <a href="https://www.info.uaic.ro/"> <img src="images/redirect.png"></a>
+                            <span property="schema:parentOrganization">
+                                <span typeof="schema:Organization">
+                                    <span property="schema:name" class="block-span"> University "Alexandru Ioan Cuza" </span>
+                                    <span property="schema:location" typeof="schema:Place" class="block-span">
+                                        <span property="schema:address" typeof="schema:PostalAddress">
+                                            <span property="schema:addressRegion">Iasi</span>
+                                            -
+                                            <span property="schema:addressCountry">Romania</span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <section id="introduction" role="doc-introduction">
+            <h2> 1. Introduction </h2>
+            <section id="introduction--purpose">
+                <h3> 1.1 Purpose </h3>
+                <p>
+                    This report has the purpose of describing the first release of Workout Generator - an application to generate and keep track of personal
+                    workouts. All technical aspects of the application will be covered in this report.
+                </p>
+            </section>
+            <section id="introduction--conventions">
+                <h3> 1.2 Document Conventions </h3>
+                <p>
+                    No special conventions will be used in this report.
+                </p> 
+            </section>
+            <section id="introduction--audience">
+                <h3> 1.3 Intended Audience and Reading Suggestions </h3>
+                <p>
+                    This report is meant for anyone interested in the application. The "Overall Description" section is suitable for everyone as a brief
+                    introduction to the project. Developers are invited to read the "External Interface Requirements" section for a detailed look on how 
+                    the application was implemented. Users might be interested in reading about all the features of the website in the "System Features"
+                    section.
+                </p> 
+            </section>
+            <section id="introduction--scope">
+                <h3> 1.4 Product Scope </h3>
+                <p>
+                    The goal of the application is simple -- provide the ability for users to generate and keep track of their workouts in a simplistic, easy
+                    to use interface. It has been proven that exercise variety is essential to optimal muscle growth. If a person performs the same exercises over 
+                    longer periods of time, the muscles will get used to that particular range of motion, and the parts of the muscles being underutilized in the exercised
+                    will be left behind. Therefore, we provide workouts generated based on the user's height, weight, age, and preferences to eliminate the aforementioned
+                    constraint. To keep the users maximally engaged with the application, we have also provided a workout tracker and a service to run each workout, so the users
+                    have no reason or incentive to look for other applications that provide these services. This way, we run less risk of users finding other applications
+                    that also provide our main feature - generated workouts - and that may appeal to them more.
+                </p> 
+            </section>
+            <section id="introduction--references">
+                <h3> 1.5 References </h3>
+                <p>
+                    This application uses the Roboto font provided by Google - <a href="https://fonts.google.com/specimen/Roboto"> Roboto Font </a>.
+                </p> 
+            </section>
+        <section id="Overall Description">
+            <h2> Overall Description </h2>
+            <section id="description--perspective">
+                <h3> 2.1 Product Perspective </h3>
+                <p>
+                    The application is created as a project for the Web Technologies course of the Computer Science Faculty of Alexandru Ioan Cuza University.
+                    As such, it is a new, stand-alone application with no external ties or requirements.
+                </p>
+            </section>
+            <section id="description--functions">
+                <h3> 2.2 Product Functions </h3>
+                <p>
+                    The product will provide the following features:
+                    <ul>
+                        <li> Create a personal account </li>
+                        <li> Generate or manually create a workout </li>
+                        <li> Edit created workouts by adding or removing exercises </li>
+                        <li> View detailed instructions on how to perform exrcises </li>
+                        <li> Run a workout with a provided timer </li>
+                        <li> Track your workout statistics </li>
+                        <li> View a global ranking of users based on several critera </li>
+                        <li> Provide an RSS feed </li>
+                    </ul>
+                </p>
+            </section>
+            <section id="description--user-classes">
+                <h3> 2.3 User Classes and Characteristics </h3>
+                <p>
+                    Since this project is rather simple and singular in overall functionality, we expect only a single class of users to use the application - people
+                    who want to exercise. Evidently, this class of users, being the only one, will have access to all the features of the application.
+                </p>
+            </section>
+            <section id="description--operating-environment">
+                <h3> 2.4 Operating Environment </h3>
+                <p>
+                    Since this is a web application, it will run on any device with a web browser. Presumably, it will most usually be used by people on their phones during, before, 
+                    or after workouts.
+                </p>
+            </section>
+            <section id="description--constraints">
+                <h3> 2.5 Design and Implementation Constraints </h3>
+                <p>
+                    The application was written primarily in PHP, HTML and CSS. Therefore, there should be no constraints for developers proficient in these languages. 
+                </p>
+            </section>
+            <section id="description--documentation">
+                <h3> 2.6 User Documentation </h3>
+                <p>
+                    The only documentation for the software will be provided in the main README file of its GitHub repository. For general users, however, there is a dedicated
+                    "About" page on the website that contains information about the main features of the application.
+                </p>
+            </section>
+            <section id="description--dependencies">
+                <h3> 2.7 Assumptions and Dependencies </h3>
+                <p>
+                    This application will have no dependencies.
+                </p>
+            </section>
+        </section>
+        <section id="external">
+            <h2> External Interface Requirements </h2>
+            <section id="external--ui">
+                <h3> 3.1 User Interfaces </h3>
+                <p>
+                    As this is a web application, the user interface is styled with CSS. As such, there are no external requirements. However, the GUI does, generally, follow a 
+                    hand-made standard. A page is made of 3 areas - the navigation bar area at the top, the main area in the middle, and the footer area at the bottom. The colour
+                    palette that must be followed is black background with dark red accents. 
+                </p>
+            </section>
+            <section id="external--hardware">
+                <h3> 3.2 Hardware Interfaces </h3>
+                <p>
+                    As this is a web application, all that is needed to run it is a device with a web browser, and access to the Internet.
+                </p>
+            </section>
+            <section id="external--software">
+                <h3> 3.3 Software Interfaces </h3>
+                <p>
+                    This web application is built with the help of XAMPP. Therefore, the language used for the back-end is PHP, the Database Management System
+                    is MariaDB, and HTTP server is Apache. No libraries or frameworks for any of CSS, JavaScript or PHP are used. 
+                </p>
+            </section>
+            <section id="external--communication">
+                <h3> 3.4 Communications Interfaces </h3>
+                <p>
+                    The main communications protocol used is HTTP. A valid e-mail address is required for account registration. Finally, the application will also provide an RSS Feed.
+                </p>
+            </section>
+        </section>
+        <section id="system-features">
+            <h2> System Features </h2>
+            <section id="system-features--feature-1">
+                <h3> 4.1 Workout Generation </h3>
+                <p>
+                    This is the main feature of the application. Users can generate workouts based on the spacial location of the exercises, of the muscle groups worked,
+                    and exercise duration. The application also takes into account the user's age, gender, height, and weight to generate exercises of appropriate difficulty and length.
+                    Alternatively, users can create their own workouts by adding exercises from the application's database.
+                </p>
+            </section>
+            <section id="system-features--feature-2">
+                <h3> 4.2 Perform workouts </h3>
+                <p>
+                    Users can easily perform their workouts with help from the application. It will keep track of the current exercise in the workout, of the exercise durations and rest periods.
+                </p>
+            </section>
+            <section id="system-features--feature-3">
+                <h3> 4.3 Keep track of your workouts, statistics, and a global classment based on these statistics </h3>
+                <p>
+                    The application will keep track of the user's current day streak of performing workouts, of the longest streak and of the total completed workouts. The global classments can be
+                    filtered by any of these statistics. The application will also keep a history of recently completed workouts that the user can view, and perform from the same page if desired. 
+                </p>
+            </section>
+        </section>
+    </article>
+</body>
+</html>
