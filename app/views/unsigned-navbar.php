@@ -5,8 +5,8 @@
             <a class="navbar__list-item navbar__list-anchor" href="/project/public"> Home </a> 
         </div>
         <ul class="navbar__list">
-            <li class="navbar__list-item"> <a class="navbar__list-anchor"href="/project/public/scholarly.html"> Technical Report </a> </li>
-            <li class="navbar__list-item"> <a class="navbar__list-anchor"href="/project/public/home/about"> About </a> </li>
+            <li class="navbar__list-item"> <a class="navbar__list-anchor" href="/project/public/scholarly.html"> Technical Report </a> </li>
+            <li class="navbar__list-item"> <a class="navbar__list-anchor" href="/project/public/home/about"> About </a> </li>
             <li class="navbar__list-item"> <a class="navbar__list-anchor" href="/project/public/home/login"> Login </a> </li>
         </ul>
         <div class="navbar__dropdown navbar__dropdown--phone">
