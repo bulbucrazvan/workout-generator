@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Workouts</title>
     <link rel="stylesheet" href="/project/public/css/font.css">
     <link rel="stylesheet" href="/project/public/css/main-framework.css">
+    <link rel="stylesheet" href="/project/public/css/user-workouts.css">
     <link rel="stylesheet" href="/project/public/css/footer.css">
     <link rel="stylesheet" href="/project/public/css/navbar.css">
 </head>
@@ -17,12 +18,22 @@
     <main>
         <section class="main-bubble">
             <div class="main-bubble__area main-bubble__area--filter-area"> 
-                <p> Workout History </p>
+                <p> My Workouts </p>
                 <form>
-                <label> Sort by </label>
+                <label> Filter by </label>
                 <select id="comboBox" class="combo-box">
-                    <option> Most recent </option>
-                    <option> Least recent </option>
+                    <option> All </option>
+                    <optgroup label="Location">
+                        <option> Outside </option>
+                        <option> Gym </option>
+                        <option> Home </option>
+                    </optgroup>
+                    <optgroup label="Muscle Group">
+                        <option> Chest </option>
+                        <option> Back </option>
+                    </optgroup>
+                    <optgroup label="More to follow..">
+                    </optgroup>
                 </select> 
                 </form>
             </div>
@@ -72,6 +83,13 @@
                 </li>
                 </ul>
             </div>
+            <div class="main-bubble__area main-bubble__area--new-workout">
+                <p> Create new workout </p>
+                <div>
+                    <button id="manualWrkt"> Manual </button>
+                    <button id="generateWrkt"> Generate workout </button>
+                </div>
+            </div>
         </section>
     </main>
     <?php
@@ -80,15 +98,20 @@
 </body>
 </html>
 
-<script src="/project/public/javascript/listbackgroundselector.js">
-</script>
-
-<script src="/project/public/javascript/comboboxclick.js">
-</script>
-
 <script>
-    let viewBtns = document.getElementsByClassName("list-area__button--view");
-    let startBtns = document.getElementsByClassName("list-area__button--start");
+let generate = document.getElementById("generateWrkt");
+let manual = document.getElementById("manualWrkt");
+
+manual.addEventListener('click', function() {
+    window.location.href = "/project/public/home/manualWorkout";
+})
+
+generate.addEventListener('click', function() {
+    window.location.href = "/project/public/home/generateWorkout";
+})
+
+let viewBtns = document.getElementsByClassName("list-area__button--view");
+let startBtns = document.getElementsByClassName("list-area__button--start");
 
     for (var i = 0; i < viewBtns.length; i++){
         viewBtns[i].addEventListener('click', function() {
@@ -99,4 +122,10 @@
             window.location.href = "/project/public/home/startWorkout";
         })
     }
+</script>
+
+<script src="/project/public/javascript/listbackgroundselector.js">
+</script>
+
+<script src="/project/public/javascript/comboboxclick.js">
 </script>

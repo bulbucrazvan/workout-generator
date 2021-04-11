@@ -36,10 +36,12 @@
                 <button id="wrkOutHistory" type="button" class="inner-bubble__button"> View </button>
             </div>
             <div class="main-bubble__inner-bubble">
-                Dummy
+                <p> Workouts completed </p>
+                <p> [User dependent] </p>
             </div>
-            <div class="main-bubble__inner-bubble">
-                Dummy
+            <div class="main-bubble__inner-bubble main-bubble__inner-bubble--has-button">
+                <p> RSS Feed </p>
+                <button type="button" class="inner-bubble__button"> View </button>
             </div>
         </section>
     </main>
@@ -52,10 +54,11 @@
 <script>
 let startWorkout = document.getElementById("startWrkoutBtn");
 let workoutHistory = document.getElementById("wrkOutHistory");
-startWorkout.addEventListener('click', onClick);
-workoutHistory.addEventListener('click', onClick);
+startWorkout.addEventListener('click', function() {
+    window.location.href = "/project/public/home/startWorkout";
+});
 
-function onClick(){
-    window.location.href = "/project/public/home/workoutHistory"
-}
+workoutHistory.addEventListener('click', function() {
+    window.location.href = "/project/public/home/workoutHistory";
+});
 </script>

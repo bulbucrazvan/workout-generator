@@ -1,0 +1,66 @@
+.main-bubble__area--header-area {
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3vh;
+}
+
+.main-bubble__area--generator-area {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.workout-generator__form {
+    background-color: rgba(15, 15, 15, 0.8);
+    border-radius: 0.5rem;
+    height: 80%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.selector-area {
+    width: 90%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2vh 0;
+}
+
+.selector-area__input-area {
+    display: flex;
+    font-weight: lighter;
+}
+
+.selector-area__input-area div {
+    margin: 0 1vw;
+}
+
+.selector-area--button-area {
+    justify-content: center;
+}
+
+.selector-area__generate-button {
+    font-size: 3vh;
+    border-radius: 0.5rem;
+    background-color: rgba(18, 130, 26);
+    border: none;
+    color: white;
+    padding: 1vh;
+}
+
+@media screen and (max-width: 768px) {
+    .selector-area__input-area {
+        font-size: 2vh;
+    }
+
+    .workout-generator__form {
+        width: 90%;
+    }
+}
