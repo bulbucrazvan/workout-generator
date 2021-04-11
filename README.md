@@ -2,7 +2,9 @@
 Regarding the teamwork, or lack thereof, at the bottom of the readme.  
   
 Utilization guide  
-The content of the repository, mainly the "app" and "public" folders, must be placed in a folder named "project", which will then be placed in whatever directory XAMPP reads projects from. The root directory of the project HAS to be "public", else it won't work.  
+The content of the repository, mainly the "app" and "public" folders, must be placed in a folder named "project", which will then be placed in whatever directory XAMPP reads projects from. The root directory of the project HAS to be "public", else it won't work.
+
+While the project does have a MVC structure in place, it is currently not utilized. The only controller in use is the "home" controller, and all it does is call the views of the project. I haven't done the proper structure yet, as I don't yet know how it will look like when I start implementing the back-end.
 
 To access the homepage, access "localhost:[port]/project/public" in a browser. This will direct you to the welcome page for users that are not logged in. From here you can go to the About page, which is still a WIP, to the Scholarly HTML technical report, or to the login page. You can get to the register page from the login page. The navigation bar all throughout changes to a dropdown menu for smaller screens, and all the navigation links from the navigation bar move into the dropdown menu.  
 
