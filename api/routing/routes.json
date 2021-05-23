@@ -1,0 +1,20 @@
+{
+    "routes": [
+        {
+            "name": "users",
+            "controller": "UsersController",
+            "isParameter": false,
+            "acceptedMethods": ["POST", "GET"],
+            "methodHandlers": ["addUser", "getUsers"],
+            "subroutes": [
+                {
+                    "name": "{id}",
+                    "isParameter": true,
+                    "acceptedMethods": ["POST", "GET"],
+                    "methodHandlers": ["addUser", "getUsers"],
+                    "subroutes": []
+                }
+            ]
+        }
+    ]
+}
