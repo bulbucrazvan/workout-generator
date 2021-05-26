@@ -6,12 +6,18 @@
             "isParameter": false,
             "acceptedMethods": ["POST", "GET"],
             "methodHandlers": ["addUser", "getUsers"],
+            "requestBodyModel": ["UserRegisterModel", null],
+            "stringQueries": [[], []],
+            "stringQueryDefaults": [[5], []],
             "subroutes": [
                 {
-                    "name": "{id}",
+                    "name": "name",
                     "isParameter": true,
-                    "acceptedMethods": ["POST", "GET"],
-                    "methodHandlers": ["addUser", "getUsers"],
+                    "acceptedMethods": ["GET"],
+                    "methodHandlers": ["getUserByName"],
+                    "requestBodyModel": [null],
+                    "stringQueries": [[]],
+                    "stringQueryDefaults": [[]],
                     "subroutes": []
                 }
             ]
