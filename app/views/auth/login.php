@@ -15,17 +15,19 @@
     ?>
     <main>
         <div class="outer-box">
-            <form class="form-box">
-                <input type="email" placeholder="E-mail"></br>
-                <input type="text" placeholder="Username"></br>
-                <input type="password" placeholder="Password"></br>
-                <input type="submit" value="Register">
+            <form class="form-box" id="login-form">
+                <p class="error-message error-message--hidden" id="error-message"> Invalid credentials </p>
+                <input type="text" name="username" placeholder="Username" required></br>
+                <input type="password" name="password" placeholder="Password" id="password-field" required></br>
+                <input type="submit" value="Login">
             </form>
-            <p class="under-text"> Have an account already? <span>Login <a href="/project/public/home/login"> here</a>.</span> </p>
+            <p class="under-text"> Don't have an account yet? <span>Register <a href="/project/public/authorization/register"> here</a>.</span> </p>
         </div>
     </main>
     <?php
         require_once(__DIR__."/../footer.php");
     ?>
 </body>
+
+<script src="/project/public/javascript/login.js"></script>
 </html>

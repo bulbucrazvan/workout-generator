@@ -1,8 +1,8 @@
 <header>
     <nav class="navbar">
         <div class="navbar__left-side">
-            <a href="/project/public/home/home" class="img-anchor"> <img class="navbar__img navbar__img--left" src="/project/public/images/logo.png"> </a>
-            <a class="navbar__list-item navbar__list-anchor" href="/project/public/home/home"> Home </a> 
+            <a href="/project/public/home" class="img-anchor"> <img class="navbar__img navbar__img--left" src="/project/public/images/logo.png"> </a>
+            <a class="navbar__list-item navbar__list-anchor" href="/project/public/home"> Home </a> 
         </div>
         <ul class="navbar__list">
             <li class="navbar__list-item"> <a class="navbar__list-anchor" href="/project/public/home/userWorkouts"> My Workouts </a> </li>
@@ -20,7 +20,7 @@
         <div class="navbar__dropdown navbar__dropdown--phone">
             <button id="menuBtn" class="navbar__button navbar__button--phone"><img id="dropDownIcon" src="/project/public/images/hamburger-icon.svg"></button>
             <div id="dropDown" class="navbar__dropdown-content navbar__dropdown-content--phone">
-                    <a href="/project/public/home/home"> Home </a>
+                    <a href="/project/public/home/index"> Home </a>
                     <a href="/project/public/home/userWorkouts"> My Workouts </a>
                     <a href="/project/public/home/globalStatistics"> Global Statistics</a>
                     <a href="/project/public/home/settings"> Profile </a>

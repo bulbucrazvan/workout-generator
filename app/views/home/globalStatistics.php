@@ -20,7 +20,7 @@
                 <p> Global Statistics </p>
                 <form>
                 <label> Rank by </label>
-                <select class="combo-box">
+                <select class="combo-box" id="comboBox">
                     <option> Current streak </option>
                     <option> Longest streak </option>
                 </select> 

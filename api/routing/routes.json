@@ -8,8 +8,29 @@
             "methodHandlers": ["addUser", "getUsers"],
             "requestBodyModel": ["UserRegisterModel", null],
             "stringQueries": [[], []],
-            "stringQueryDefaults": [[5], []],
+            "stringQueryDefaults": [[], []],
             "subroutes": [
+                {
+                    "name": "login",
+                    "isParameter": false,
+                    "acceptedMethods": ["GET"],
+                    "methodHandlers": ["login"],
+                    "requestBodyModel": [null],
+                    "stringQueries": [["username", "password"]],
+                    "stringQueryDefaults": [[null, null]],
+                    "subroutes": [
+                        {
+                            "name": "loginKeyUser",
+                            "isParameter": false,
+                            "acceptedMethods": ["GET"],
+                            "methodHandlers": ["loginKeyUser"],
+                            "requestBodyModel": [null],
+                            "stringQueries": [["loginKey"]],
+                            "stringQueryDefaults": [[null]],
+                            "subroutes": []
+                        }
+                    ]
+                },
                 {
                     "name": "name",
                     "isParameter": true,

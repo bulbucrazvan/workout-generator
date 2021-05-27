@@ -63,6 +63,16 @@ input[type=submit]:hover {
     color: rgb(110, 13, 7);
 }
 
+.error-message {
+    color: rgb(110, 13, 7);
+    font-size: 1.5vh;
+    margin: 0;
+}
+
+.error-message--hidden {
+    display: none;
+}
+
 @media screen and (max-width: 1024px){
     .outer-box {
         width: 95%;

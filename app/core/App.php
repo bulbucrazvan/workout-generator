@@ -1,12 +1,16 @@
 <?php
+require_once(__DIR__ . "/../Utility/SessionUtils.php");
+require_once(__DIR__ . "/../Utility/Redirect.php");
 
 class App {
-    protected $controller = 'home';
+    protected $controller = 'welcome';
     protected $controllerObject;
     protected $method = 'index';
     protected $params = [];
 
     public function __construct(){
+        SessionUtils::startSession();
+
         $url = $this->parseURL();
 
         if (isset($url[0])){
