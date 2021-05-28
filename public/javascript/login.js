@@ -23,7 +23,7 @@ const sendRequest = async () => {
         headers: {
             'Content-Type': 'application/json'
         }
-    })
+    });
     const responseBody = await response.json();
     if (!responseBody["statusCode"]) {
         window.location.href = "/project/public/authorization/beginSession/" + responseBody["description"];

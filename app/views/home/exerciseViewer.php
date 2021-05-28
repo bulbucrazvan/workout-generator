@@ -14,7 +14,6 @@
 <body>
     <?php
         require_once(__DIR__."/../signed-navbar.php");
-        require_once("/project/app/core/allow-origin.php");
     ?>
     <main>
         <section class="main-bubble">

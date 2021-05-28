@@ -42,6 +42,48 @@
                     "subroutes": []
                 }
             ]
+        },
+        {
+            "name": "exercises",
+            "controller": "ExercisesController",
+            "isParameter": false,
+            "acceptedMethods": ["POST", "GET"],
+            "methodHandlers": ["addExercise", "getExercises"],
+            "requestBodyModel": ["Exercise", null],
+            "stringQueries": [[], []],
+            "stringQueryDefaults": [[], []],
+            "subroutes": [
+                {
+                    "name": "locationTypes",
+                    "isParameter": false,
+                    "acceptedMethods": ["GET"],
+                    "methodHandlers": ["getLocationTypes"],
+                    "requestBodyModel": [null],
+                    "stringQueries": [[]],
+                    "stringQueryDefaults": [[]],
+                    "subroutes": []
+                },
+                {
+                    "name": "muscleTypes",
+                    "isParameter": false,
+                    "acceptedMethods": ["GET"],
+                    "methodHandlers": ["getMuscleTypes"],
+                    "requestBodyModel": [null],
+                    "stringQueries": [[]],
+                    "stringQueryDefaults": [[]],
+                    "subroutes": []
+                },
+                {
+                    "name": "exerciseName",
+                    "isParameter": true,
+                    "acceptedMethods": ["PUT", "GET", "DELETE"],
+                    "methodHandlers": ["updateExercise", "getExercise", "deleteExercise"],
+                    "requestBodyModel": ["Exercise", null, null],
+                    "stringQueries": [[], [], []],
+                    "stringQueryDefaults": [[], [], []],
+                    "subroutes": []
+                }
+            ]
         }
     ]
 }
