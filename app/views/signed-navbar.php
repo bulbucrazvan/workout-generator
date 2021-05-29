@@ -5,7 +5,7 @@
             <a class="navbar__list-item navbar__list-anchor" href="/project/public/home"> Home </a> 
         </div>
         <ul class="navbar__list">
-            <li class="navbar__list-item"> <a class="navbar__list-anchor" href="/project/public/home/userWorkouts"> My Workouts </a> </li>
+            <li class="navbar__list-item"> <a class="navbar__list-anchor" href="/project/public/workouts"> My Workouts </a> </li>
             <li class="navbar__list-item"> <a class="navbar__list-anchor" href="/project/public/home/globalStatistics"> Global Statistics </a> </li>
             <li class="navbar__list-item navbar__dropdown navbar__dropdown--desktop">
                 <button id="accountBtn" class="navbar__button navbar__button--desktop"> <img id="accIcon" src="/project/public/images/account-icon.svg"></button>
@@ -21,7 +21,7 @@
             <button id="menuBtn" class="navbar__button navbar__button--phone"><img id="dropDownIcon" src="/project/public/images/hamburger-icon.svg"></button>
             <div id="dropDown" class="navbar__dropdown-content navbar__dropdown-content--phone">
                     <a href="/project/public/home/index"> Home </a>
-                    <a href="/project/public/home/userWorkouts"> My Workouts </a>
+                    <a href="/project/public/workouts"> My Workouts </a>
                     <a href="/project/public/home/globalStatistics"> Global Statistics</a>
                     <a href="/project/public/home/settings"> Profile </a>
                     <a href="/project/public/authorization/logout"> Logout </a>

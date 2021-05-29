@@ -16,13 +16,25 @@
     ?>
     <main>
         <section class="main-bubble">
-            <div class="main-bubble__inner-bubble main-bubble__inner-bubble--last-workout main-bubble__inner-bubble--has-button">
-                <div class=>
-                    <p> Last workout: </p>
-                    <p> Chest training </p>
-                </div>
-                <button id="startWrkoutBtn" type="button" class="inner-bubble__button inner-bubble__button--last-workout"> Start </button>
-            </div>
+            <?php 
+                if ($data->lastWorkout) {
+                    echo "
+                    <div class=\"main-bubble__inner-bubble main-bubble__inner-bubble--last-workout main-bubble__inner-bubble--has-button\">
+                        <div>
+                            <p> Last workout: </p>
+                            <p> Chest training </p>
+                        </div>
+                        <button id=\"startWrkoutBtn\" type=\"button\" class=\"inner-bubble__button inner-bubble__button--last-workout\"> Start </button>
+                    </div>";
+                }
+                else {
+                    echo "
+                    <div class=\"main-bubble__inner-bubble\">
+                        <p> Last workout: </p>
+                        <p> No workouts yet. </p>
+                    </div>";
+                }
+            ?>
             <div class="main-bubble__inner-bubble">
                 <p> Current streak </p>
                 <p> <?=$data->currentStreak?> </p>

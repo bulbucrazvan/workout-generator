@@ -53,11 +53,11 @@
                         {
                             "name": "workouts",
                             "isParameter": false,
-                            "acceptedMethods": ["GET"],
-                            "methodHandlers": ["getLocationTypes"],
-                            "requestBodyModel": [null],
-                            "stringQueries": [[]],
-                            "stringQueryDefaults": [[]],
+                            "acceptedMethods": ["GET", "POST"],
+                            "methodHandlers": ["getWorkouts", "addWorkout"],
+                            "requestBodyModel": [null, "WorkoutCreationDTO"],
+                            "stringQueries": [[], []],
+                            "stringQueryDefaults": [[], []],
                             "subroutes": [
                                 {
                                     "name": "history",
@@ -67,6 +67,16 @@
                                     "requestBodyModel": [null],
                                     "stringQueries": [["order", "limit"]],
                                     "stringQueryDefaults": [["desc", 0]],
+                                    "subroutes": []
+                                },
+                                {
+                                    "name": "workoutID",
+                                    "isParameter": true,
+                                    "acceptedMethods": ["DELETE"],
+                                    "methodHandlers": ["deleteWorkout"],
+                                    "requestBodyModel": [null],
+                                    "stringQueries": [[]],
+                                    "stringQueryDefaults": [[]],
                                     "subroutes": []
                                 }
                             ]

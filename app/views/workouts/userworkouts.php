@@ -19,23 +19,6 @@
         <section class="main-bubble">
             <div class="main-bubble__area main-bubble__area--filter-area"> 
                 <p> My Workouts </p>
-                <form>
-                <label> Filter by </label>
-                <select id="comboBox" class="combo-box">
-                    <option> All </option>
-                    <optgroup label="Location">
-                        <option> Outside </option>
-                        <option> Gym </option>
-                        <option> Home </option>
-                    </optgroup>
-                    <optgroup label="Muscle Group">
-                        <option> Chest </option>
-                        <option> Back </option>
-                    </optgroup>
-                    <optgroup label="More to follow..">
-                    </optgroup>
-                </select> 
-                </form>
             </div>
             <div class="main-bubble__area main-bubble__area--list-area">
                 <ul class="list-area__list">
@@ -86,8 +69,8 @@
             <div class="main-bubble__area main-bubble__area--new-workout">
                 <p> Create new workout </p>
                 <div>
-                    <button id="manualWrkt"> Manual </button>
-                    <button id="generateWrkt"> Generate workout </button>
+                    <button id="manualWrkt" onclick="location.href='/project/public/workouts/create';"> Manual </button>
+                    <button id="generateWrkt" onclick="location.href='/project/public/workouts/generate';"> Generate workout </button>
                 </div>
             </div>
         </section>
@@ -98,34 +81,6 @@
 </body>
 </html>
 
-<script>
-let generate = document.getElementById("generateWrkt");
-let manual = document.getElementById("manualWrkt");
 
-manual.addEventListener('click', function() {
-    window.location.href = "/project/public/home/manualWorkout";
-})
+<script src="/project/public/javascript/listbackgroundselector.js"></script>
 
-generate.addEventListener('click', function() {
-    window.location.href = "/project/public/home/generateWorkout";
-})
-
-let viewBtns = document.getElementsByClassName("list-area__button--view");
-let startBtns = document.getElementsByClassName("list-area__button--start");
-
-    for (var i = 0; i < viewBtns.length; i++){
-        viewBtns[i].addEventListener('click', function() {
-            window.location.href = "/project/public/home/workoutViewer";
-        });
-
-        startBtns[i].addEventListener('click', function() {
-            window.location.href = "/project/public/home/startWorkout";
-        })
-    }
-</script>
-
-<script src="/project/public/javascript/listbackgroundselector.js">
-</script>
-
-<script src="/project/public/javascript/comboboxclick.js">
-</script>

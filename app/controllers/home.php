@@ -10,7 +10,6 @@ class Home extends Controller {
         $curlHandle = curl_init("http://92.115.143.213:3000/project/api/users/" . $_SESSION["SESSION_USER"]);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
         $response = json_decode(curl_exec($curlHandle), true);
-        curl_close($curlHandle);
 
         require_once(APP_MODELS . "UserHomePage.php");
         $userHomepage = new UserHomePage();
@@ -18,6 +17,16 @@ class Home extends Controller {
             if (isset($response[$key])) {
                 $userHomepage->setInfo($key, $response[$key]);
             }
+        }
+
+        $uri = "http://92.115.143.213:3000/project/api/users/" . $_SESSION["SESSION_USER"] . "/workouts/history?limit=1";
+        curl_setopt($curlHandle, CURLOPT_URL, $uri);
+        $response = json_decode(curl_exec($curlHandle), false);
+        if (count($response)) {
+            $userHomepage->setInfo("lastWorkout", $response[0]);
+        }
+        else {
+            $userHomepage->setInfo("lastWorkout", null);
         }
 
         $this->view('home/home', $userHomepage);
@@ -37,22 +46,6 @@ class Home extends Controller {
 
     public function workoutViewer(){
         $this->view('home/workoutViewer');
-    }
-
-    public function exerciseViewer(){
-        $this->view('home/exerciseViewer');
-    }
-
-    public function generateWorkout(){
-        $this->view('home/generateWorkout');
-    }
-
-    public function generatedWorkout() {
-        $this->view('home/generatedWorkout');
-    }
-
-    public function manualWorkout() {
-        $this->view('home/manualWorkout');
     }
 
     public function startWorkout() {

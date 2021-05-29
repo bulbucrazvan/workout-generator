@@ -163,7 +163,7 @@ async function saveExercise() {
     if (currentState == NEW_EXERCISE) {
         response = await postExercise(exercise);
         await appendExerciseToPage(response["description"], exercise["name"], false);
-        await setListBackgroundColour();
+        setListBackgroundColour("list-area__list", "");
     }
     else {
         response = await putExercise(editedExerciseID, exercise);
@@ -226,21 +226,30 @@ async function appendExerciseToPage(exerciseID, exerciseName, wasDeleted) {
         </form>
         </li>`;
     exerciseListElement.innerHTML += exerciseElement;
-    document.getElementById("exercise" + exerciseID).addEventListener('click', function(){ editExercise(exerciseID)});
-    if (wasDeleted) {
-        document.getElementById("exerciseChange" + exerciseID).addEventListener('click', function(){ restoreExerciseHandler(exerciseID)});
-    }
-    else {
-        document.getElementById("exerciseChange" + exerciseID).addEventListener('click', function(){ deleteExerciseHandler(exerciseID)});
-    }
 }
 
 async function initialize() {
-    exercisesList = await getExercises();
-    for (exercise of exercisesList) {
-        await appendExerciseToPage(exercise["id"], exercise["name"], exercise["wasDeleted"]);
+    var exercisesList = await getExercises();
+    for (var exercise of exercisesList) {
+        await (async function () {
+            await appendExerciseToPage(exercise["id"], exercise["name"], exercise["wasDeleted"]);
+        }()); 
     }
-    await setListBackgroundColour();
+    for (var i = 0; i < exercisesList.length; i++) {
+        (function() {
+            var exercise = exercisesList[i];
+            var wasDeleted = exercise["wasDeleted"];
+            var exerciseID = exercise["id"];
+            document.getElementById("exercise" + exerciseID).addEventListener('click', function(){ editExercise(exerciseID)});
+            if (wasDeleted) {
+                document.getElementById("exerciseChange" + exerciseID).addEventListener('click', function(){ restoreExerciseHandler(exerciseID)});
+            }
+            else {
+                document.getElementById("exerciseChange" + exerciseID).addEventListener('click', function(){ deleteExerciseHandler(exerciseID)});
+            }
+        }());
+    }
+    setListBackgroundColour("list-area__list", "");
 }
 
 async function getExerciseButton(exerciseID, wasDeleted) {
@@ -252,16 +261,6 @@ async function getExerciseButton(exerciseID, wasDeleted) {
     }
 }
 
-async function setListBackgroundColour() {
-    let listItems = document.getElementsByClassName("list-area__form");
-
-    if (listItems.length % 2 == 0){
-        sheet.insertRule(".list-area__list li:nth-child(even){ background-color: rgba(0, 0, 0, 0.5); }", sheet.cssRules.length);
-    }
-    else {
-        sheet.insertRule(".list-area__list li:nth-child(odd){ background-color: rgba(0, 0, 0, 0.5); }", sheet.cssRules.length);
-    }
-}
 
 initialize();
 editorBtn.addEventListener('click', newExercise);

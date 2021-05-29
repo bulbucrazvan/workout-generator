@@ -18,7 +18,7 @@
     <main>
         <section class="main-bubble">
         <div class="main-bubble__area main-bubble__area--exercise-name-area">
-            <p> Exercise 1 </p>
+            <p> <?=$data["name"]?> </p>
         </div>
         <div class="main-bubble__area main-bubble__area--exercise-description-area">
             <div class="exercise-description exercise-description__video-half">
@@ -26,15 +26,26 @@
                     <source src="https://www.youtube.com/watch?v=XIMLoLxmTDw">
                 </video>
                 <div class="video-half__description">
-                    <div> Location: <p> Outside </p> </div>
-                    <div> Muscles worked: <p> .... </p> </div>
-                    <div> More to follow.. </div>
+                    <div> Location: 
+                        <p>
+                            <?php
+                                echo implode(", ", $data["locations"]);
+                            ?> 
+                        </p> 
+                    </div>
+                    <div> Muscles worked:
+                        <p>
+                            <?php
+                                echo implode(", ", $data["muscles"]);
+                            ?>
+                        </p> 
+                    </div>
+                    <div> Duration: <p> <?=$data["duration"] . " minutes"?> </div>
                 </div>
             </div>
             <div class="exercise-description exercise-description__instructions-half">
                 <p> Instructions </p>
-                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sagittis nisi id semper sollicitudin. Ut interdum mauris a ipsum congue, quis ullamcorper augue pulvinar. Sed facilisis lectus turpis, in ultricies lectus ultricies imperdiet. Curabitur pulvinar nec leo vel ullamcorper. Vestibulum luctus iaculis sem ac luctus. Aenean consequat feugiat diam, hendrerit condimentum odio placerat a. Vivamus id mi mollis, maximus magna nec, vulputate dui. Aenean facilisis viverra lacus sed molestie. Quisque blandit nisl nec urna tempor, id aliquet velit luctus. Cras suscipit erat efficitur, sollicitudin risus ac, accumsan ante. Donec bibendum aliquet sapien et egestas. Phasellus dictum leo eget turpis dapibus faucibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi vitae urna erat. Curabitur et nisi nec eros consequat vestibulum ut a turpis.
-                </p>
+                <p> <?=$data["instructions"]?></p>
             </div>
         </div>
         </section>

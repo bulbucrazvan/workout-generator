@@ -44,9 +44,9 @@
                 die();
             }
 
-            $addUserStatement = "INSERT INTO users VALUES (NULL, ?, ?, ?, NULL, NULL, NULL, NULL, 0, 0, 0, 0)";
+            $addUserStatement = "INSERT INTO users VALUES (NULL, ?, ?, ?, NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL)";
             $queryStatement = $this->databaseConnection->prepare($addUserStatement);
-            $queryStatement->bind_param('sss', $requestBody->username, $requestBody->password, $requestBody->email);
+            $queryStatement->bind_param('sss', $requestBody->email, $requestBody->username, $requestBody->password);
             $queryStatement->execute();
 
             http_response_code(201);
@@ -106,6 +106,91 @@
             echo json_encode($user);
         }
 
+        //GET: /users/{userID}/workouts -- gets user workouts(name and id)
+        public function getWorkouts($params, $queryParams, $requestBody) {
+            if (!is_numeric($params["userID"])) {
+                http_response_code(400);
+                echo json_encode(new Response(1, "Bad userID"));
+                die();
+            }
+
+            $queryStatement = $this->databaseConnection->prepare("SELECT workoutID, name FROM workouts WHERE userID = ? AND wasDeleted = 0");
+            $queryStatement->bind_param('i', $params["userID"]);
+            $queryStatement->execute();
+            $result = $queryStatement->get_result();
+            $workouts = array();
+            require_once("../models/DTO/WorkoutDTO.php");
+            while ($row = $result->fetch_assoc()) {
+                $workout = new WorkoutDTO($row["name"], $row["workoutID"]);
+                array_push($workouts, $workout);
+            }
+            http_response_code(200);
+            echo json_encode($workouts);
+        }
+
+        //POST: /users/{userID}/workouts -- post new workout
+        public function addWorkout($params, $queryParams, $requestBody) {
+            if (!is_numeric($params["userID"])) {
+                http_response_code(400);
+                echo json_encode(new Response(1, "Bad userID"));
+                die();
+            }
+            if (!count($requestBody->exercises)) {
+                http_response_code(400);
+                echo json_encode(new Response(2, "Workout needs to have at least 1 exercise."));
+            }
+
+            $exercises = $requestBody->exercises;
+            $duration = $this->getExercisesDuration($exercises);
+            $addWorkoutStatement = "INSERT INTO workouts VALUES (NULL, ?, ?, $duration, 0)";
+            $queryStatement = $this->databaseConnection->prepare($addWorkoutStatement);
+            $queryStatement->bind_param('is', $params["userID"], $requestBody->workoutName);
+            $queryStatement->execute();
+
+            $workoutID = $this->getWorkoutID($requestBody->workoutName);
+            $addWorkoutAssociationStatement = 'INSERT INTO workout_exercises VALUES ';
+            for ($i = 0; $i < count($exercises); $i++) {
+                $exercise = $exercises[$i];
+                $association = "($workoutID, $exercise),";
+                $addWorkoutAssociationStatement .= $association;
+            };
+            $addWorkoutAssociationStatement = rtrim($addWorkoutAssociationStatement, ',');
+            $queryStatement = $this->databaseConnection->prepare($addWorkoutAssociationStatement);
+            $queryStatement->execute();
+
+            http_response_code(201);
+            echo json_encode(new Response(0, $workoutID));
+        }
+
+        //DELETE: /users/{userID}/workouts/{workoutID}
+        public function deleteWorkout($params, $queryParams, $requestBody) {
+            if (!is_numeric($params["userID"])) {
+                http_response_code(400);
+                echo json_encode(new Response(1, "Bad userID"));
+                die();
+            }
+            if (!is_numeric($params["workoutID"])) {
+                http_response_code(400);
+                echo json_encode(new Response(2, "Bad workoutID"));
+                die();
+            }
+            $userID = $params["userID"];
+            $workoutID = $params["workoutID"];
+            $queryStatement = $this->databaseConnection->prepare("UPDATE workouts
+                                                                  SET wasDeleted = 1
+                                                                  WHERE workoutID = $workoutID
+                                                                  AND userID = $userID");
+            $queryStatement->execute();
+            if ($this->databaseConnection->affected_rows) {
+                http_response_code(200);
+                echo json_encode(new Response(0, "Marked as deleted."));
+            }
+            else {
+                http_response_code(404);
+                echo json_encode(new Response(3, "Workout doesn't exist or doesn't belong to userID"));
+            }
+        }
+
         //GET: /users/{userID}/workouts/history?order=[asc/desc]$limit=[]
         public function getWorkoutHistory($params, $queryParams, $requestBody) {
             if (!is_numeric($params["userID"])) {
@@ -128,13 +213,13 @@
                 $getWorkoutHistoryStatement .= " LIMIT $limit";
             }
             if ($queryStatement = $this->databaseConnection->prepare($getWorkoutHistoryStatement)) {
-                $queryStatement->bind_param($params["userID"]);
+                $queryStatement->bind_param('i', $params["userID"]);
                 $queryStatement->execute();
                 $result = $queryStatement->get_result();
                 $receivedWorkouts = array();
+                require_once("../models/DTO/WorkoutDTO.php");
                 while ($row = $result->fetch_assoc()) {
-                    $workout["workoutID"] = $row["w.workoutID"];
-                    $workout["workoutName"] = $row["w.name"];
+                    $workout = new WorkoutDTO($row["w.name"], $row["w.workoutID"]);
                     array_push($receivedWorkouts, $workout);
                 }
                 http_response_code(200);
@@ -200,6 +285,28 @@
             $queryStatement->execute();
 
             return $loginKey;
+        }
+
+        private function getWorkoutID($workoutName) {
+            $queryStatement = $this->databaseConnection->prepare("SELECT workoutID FROM workouts WHERE name = ?");
+            $queryStatement->bind_param('s', $workoutName);
+            $queryStatement->execute();
+            $result = $queryStatement->get_result();
+            if ($result->num_rows) {
+                $row = $result->fetch_assoc();
+                return $row["workoutID"];
+            }
+            return null;
+        }
+
+        private function getExercisesDuration($exercises) {
+            $totalDuration = 0;
+            foreach ($exercises as $exercise) {
+                $result = $this->databaseConnection->query("SELECT duration FROM exercises WHERE id = $exercise");
+                $row = $result->fetch_assoc();
+                $totalDuration += $row["duration"];
+            }
+            return $totalDuration;
         }
 
     }

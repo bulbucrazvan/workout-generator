@@ -101,5 +101,6 @@
     }
 </style>
 
-<script src="/project/public/javascript/admin/admin.js"></script>
 <script src="/project/public/javascript/listbackgroundselector.js"></script>
+<script src="/project/public/javascript/admin/admin.js"></script>
+

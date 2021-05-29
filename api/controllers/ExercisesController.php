@@ -44,7 +44,7 @@
 
             $addExerciseStatement = "INSERT INTO exercises VALUES (NULL, ?, ?, ?, ?, 0)";
             $queryStatement = $this->databaseConnection->prepare($addExerciseStatement);
-            $queryStatement->bind_param('sssi', $requestBody->name, $requestBody->instructions, $requestBody->videoURL, $requestBody->duration);
+            $queryStatement->bind_param('sssi', $requestBody->name, $requestBody->duration, $requestBody->videoURL, $requestBody->instructions);
             $queryStatement->execute();
 
             $exerciseId = $this->getExerciseId($requestBody->name);
