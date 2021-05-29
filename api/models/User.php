@@ -3,7 +3,6 @@
 
     class User extends Model {
         
-        public $id;
         public $username;
         public $password;
         public $email;

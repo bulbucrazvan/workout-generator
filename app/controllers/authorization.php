@@ -16,6 +16,14 @@
             $this->view('auth/register');
         }
 
+        public function logout() {
+            if (!SessionUtils::isLoggedIn()) {
+                Redirect::to(APP_PATH . "/welcome");
+            }
+            SessionUtils::logout();
+            Redirect::to(APP_PATH . "/welcome");
+        }
+
         public function beginSession($loginkey) {
             if (SessionUtils::isLoggedIn()) {
                 Redirect::to(APP_PATH . '/home');
@@ -29,7 +37,7 @@
             curl_close($curlHandle);
 
             SessionUtils::login($response["description"], $loginkey);
-            Redirect::to(APP_PATH);
+            Redirect::to(APP_PATH . '/home');
         }
 
     }

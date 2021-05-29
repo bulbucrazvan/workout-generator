@@ -32,14 +32,46 @@
                     ]
                 },
                 {
-                    "name": "name",
+                    "name": "ranking",
+                    "isParameter": false,
+                    "acceptedMethods": ["GET"],
+                    "methodHandlers": ["getUserRankings"],
+                    "requestBodyModel": [null],
+                    "stringQueries": [["rankBy"]],
+                    "stringQueryDefaults": [["longestStreak"]],
+                    "subroutes": []
+                },
+                {
+                    "name": "userID",
                     "isParameter": true,
                     "acceptedMethods": ["GET"],
-                    "methodHandlers": ["getUserByName"],
+                    "methodHandlers": ["getUser"],
                     "requestBodyModel": [null],
                     "stringQueries": [[]],
                     "stringQueryDefaults": [[]],
-                    "subroutes": []
+                    "subroutes": [
+                        {
+                            "name": "workouts",
+                            "isParameter": false,
+                            "acceptedMethods": ["GET"],
+                            "methodHandlers": ["getLocationTypes"],
+                            "requestBodyModel": [null],
+                            "stringQueries": [[]],
+                            "stringQueryDefaults": [[]],
+                            "subroutes": [
+                                {
+                                    "name": "history",
+                                    "isParameter": false,
+                                    "acceptedMethods": ["GET"],
+                                    "methodHandlers": ["getWorkoutHistory"],
+                                    "requestBodyModel": [null],
+                                    "stringQueries": [["order", "limit"]],
+                                    "stringQueryDefaults": [["desc", 0]],
+                                    "subroutes": []
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         },
@@ -49,7 +81,7 @@
             "isParameter": false,
             "acceptedMethods": ["POST", "GET"],
             "methodHandlers": ["addExercise", "getExercises"],
-            "requestBodyModel": ["Exercise", null],
+            "requestBodyModel": ["ExerciseUploadDTO", null],
             "stringQueries": [[], []],
             "stringQueryDefaults": [[], []],
             "subroutes": [
@@ -74,13 +106,13 @@
                     "subroutes": []
                 },
                 {
-                    "name": "exerciseName",
+                    "name": "exerciseID",
                     "isParameter": true,
-                    "acceptedMethods": ["PUT", "GET", "DELETE"],
-                    "methodHandlers": ["updateExercise", "getExercise", "deleteExercise"],
-                    "requestBodyModel": ["Exercise", null, null],
-                    "stringQueries": [[], [], []],
-                    "stringQueryDefaults": [[], [], []],
+                    "acceptedMethods": ["PUT", "GET", "DELETE", "PATCH"],
+                    "methodHandlers": ["updateExercise", "getExercise", "deleteExercise", "restoreExercise"],
+                    "requestBodyModel": ["ExerciseUploadDTO", null, null, null],
+                    "stringQueries": [[], [], [], []],
+                    "stringQueryDefaults": [[], [], [], []],
                     "subroutes": []
                 }
             ]

@@ -2,7 +2,9 @@
 
     class Model {
         public function setInfo($key, $value) {
-            $this->$key = $value;
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
+            }
         }
 
         public function getInfo($requestedInfo) {

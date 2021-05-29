@@ -1,9 +1,8 @@
 <?php
-    require_once("Model.php");
+    require_once(__DIR__."/../Model.php");
 
-    class Exercise extends Model {
+    class ExerciseUploadDTO extends Model {
 
-        public $id;
         public $name;
         public $instructions;
         public $videoURL;

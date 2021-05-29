@@ -21,30 +21,14 @@
                 <form>
                 <label> Rank by </label>
                 <select class="combo-box" id="comboBox">
-                    <option> Current streak </option>
-                    <option> Longest streak </option>
+                    <option value="currentStreak"> Current streak </option>
+                    <option value="longestStreak"> Longest streak </option>
+                    <option value="workoutsCompleted"> Completed workouts </option>
                 </select> 
                 </form>
             </div>
             <div class="main-bubble__area main-bubble__area--list-area">
-                <ul class="list-area__list">
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
-                <li> <p class="list-area__paragraph list-area__paragraph--left">User 1</p> <p class="list-area__paragraph">2 days</p> </li>
+                <ul id="rankingsList" class="list-area__list">
                 </ul>
             </div>
         </section>
@@ -60,3 +44,6 @@
 
 <script src="/project/public/javascript/comboboxclick.js">
 </script>
+
+<script src="/project/public/javascript/home/userRankings.js"></script>
+

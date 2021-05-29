@@ -25,11 +25,11 @@
             </div>
             <div class="main-bubble__inner-bubble">
                 <p> Current streak </p>
-                <p> [User dependent] </p>
+                <p> <?=$data->currentStreak?> </p>
             </div>
             <div class="main-bubble__inner-bubble">
                 <p> Longest streak </p>
-                <p> [User dependent] </p>
+                <p> <?=$data->longestStreak?> </p>
             </div>
             <div class="main-bubble__inner-bubble main-bubble__inner-bubble--has-button">
                 <p> Workout history </p>
@@ -37,7 +37,7 @@
             </div>
             <div class="main-bubble__inner-bubble">
                 <p> Workouts completed </p>
-                <p> [User dependent] </p>
+                <p> <?=$data->workoutsCompleted?> </p>
             </div>
             <div class="main-bubble__inner-bubble main-bubble__inner-bubble--has-button">
                 <p> RSS Feed </p>

@@ -2,9 +2,25 @@
 
 class Home extends Controller {
     
+    public function index() {
+        if (!SessionUtils::isLoggedIn()) {
+            Redirect::to(APP_PATH . '/welcome');
+        }
+        
+        $curlHandle = curl_init("http://92.115.143.213:3000/project/api/users/" . $_SESSION["SESSION_USER"]);
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+        $response = json_decode(curl_exec($curlHandle), true);
+        curl_close($curlHandle);
 
-    public function index(){
-        $this->view('home/home');
+        require_once(APP_MODELS . "UserHomePage.php");
+        $userHomepage = new UserHomePage();
+        foreach ($userHomepage as $key => $value) {
+            if (isset($response[$key])) {
+                $userHomepage->setInfo($key, $response[$key]);
+            }
+        }
+
+        $this->view('home/home', $userHomepage);
     }
 
     public function globalStatistics(){

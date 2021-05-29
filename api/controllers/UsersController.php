@@ -54,7 +54,100 @@
             
         }
 
-        //GET: /users/login - checks user credentials on login
+         //GET: /users/ranking?rankBy=[currentStreak/longestStreak/completedWorkouts]
+         public function getUserRankings($params, $queryParams, $requestBody) {
+            $rankBy = $queryParams["rankBy"];
+            $getUserRankingStatement = "SELECT username, $rankBy FROM users ORDER BY $rankBy DESC";
+            if ($queryStatement = $this->databaseConnection->prepare($getUserRankingStatement)) {
+                $queryStatement->execute();
+                $result = $queryStatement->get_result();
+                $receivedRanking = array();
+                while ($row = $result->fetch_assoc()) {
+                    $user["username"] = $row["username"];
+                    $user[$rankBy] = $row[$rankBy];
+                    array_push($receivedRanking, $user); 
+                }
+                http_response_code(200);
+                echo json_encode($receivedRanking);
+            }   
+            else {
+                http_response_code(400);
+                echo json_encode(new Response(1, "Bad ranking parameter."));
+            }
+        }
+
+        //GET: /users/{userID} -- gets the details of user
+        public function getUser($params, $queryParams, $requestBody) {
+            if (!is_numeric($params["userID"])) {
+                http_response_code(400);
+                echo json_encode(new Response(1, "Bad userID"));
+                die();
+            }
+
+            $queryStatement = $this->databaseConnection->prepare("SELECT * FROM users WHERE id = ?");
+            $queryStatement->bind_param('i', $params["userID"]);
+            $queryStatement->execute();
+            $result = $queryStatement->get_result();
+            
+            if (!$result->num_rows) {
+                http_response_code(404);
+                echo json_encode(new Response(2, "User not found."));
+                die();
+            }
+            
+            require_once("../models/User.php");
+            $row = $result->fetch_assoc();
+            $user = new User();
+            foreach ($row as $key => $value) {
+                $user->setInfo($key, $value);
+            }
+        
+            http_response_code(200);
+            echo json_encode($user);
+        }
+
+        //GET: /users/{userID}/workouts/history?order=[asc/desc]$limit=[]
+        public function getWorkoutHistory($params, $queryParams, $requestBody) {
+            if (!is_numeric($params["userID"])) {
+                http_response_code(400);
+                echo json_encode(new Response(1, "Bad userID"));
+                die();
+            }
+
+            if (!is_numeric($queryParams["limit"]) || $queryParams["limit"] < 0) {
+                http_response_code(400);
+                echo json_encode(new Response(2, "Bad limit"));
+            }
+            $order = $queryParams["order"];
+            $limit = $queryParams["limit"];
+            $getWorkoutHistoryStatement = "SELECT w.workoutID, w.name FROM workouts w 
+                                           JOIN workout_history h ON w.workoutID=h.workoutID AND w.userID = h.userID
+                                           WHERE h.userID = ?  
+                                           ORDER BY h.dateCompleted $order";
+            if ($limit) {
+                $getWorkoutHistoryStatement .= " LIMIT $limit";
+            }
+            if ($queryStatement = $this->databaseConnection->prepare($getWorkoutHistoryStatement)) {
+                $queryStatement->bind_param($params["userID"]);
+                $queryStatement->execute();
+                $result = $queryStatement->get_result();
+                $receivedWorkouts = array();
+                while ($row = $result->fetch_assoc()) {
+                    $workout["workoutID"] = $row["w.workoutID"];
+                    $workout["workoutName"] = $row["w.name"];
+                    array_push($receivedWorkouts, $workout);
+                }
+                http_response_code(200);
+                echo json_encode($receivedWorkouts);
+            }
+            else {
+                http_response_code(400);
+                echo json_encode(new Response(3, "Bad order"));
+            }
+            
+        }
+
+        //GET: /users/login - checks user credentials on login, returns loginkey
         public function login($params, $queryParams, $requestBody) {
             $getUserStatement = 'SELECT id, username, password FROM users WHERE username = ?';
             $queryStatement = $this->databaseConnection->prepare($getUserStatement);
@@ -94,10 +187,6 @@
 
             http_response_code(400);
             echo json_encode(new Response(1, "Invalid login key."));
-        }
-
-        public function getUserByName($params, $queryParams, $requestBody) {
-            echo $params["name"];
         }
 
         private function generateLoginKey($userID) {

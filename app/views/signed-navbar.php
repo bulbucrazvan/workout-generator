@@ -12,7 +12,7 @@
                 <div id="accountButtonBlur" class="navbar__dropdown-blur navbar__dropdown-blur--top navbar__dropdown-blur--invisible"></div>    
                 <div id="accountDropDown" class="navbar__dropdown-content navbar__dropdown-content--desktop">
                     <a href="/project/public/home/settings"> Settings </a>
-                    <a href="/project/public"> Logout </a>
+                    <a href="/project/public/authorization/logout"> Logout </a>
                     <div id="accountBlur" class="navbar__dropdown-blur navbar__dropdown-blur--bottom navbar__dropdown-blur--invisible"></div>
                 </div>
             </li>
@@ -24,7 +24,7 @@
                     <a href="/project/public/home/userWorkouts"> My Workouts </a>
                     <a href="/project/public/home/globalStatistics"> Global Statistics</a>
                     <a href="/project/public/home/settings"> Profile </a>
-                    <a href="/project/public"> Logout </a>
+                    <a href="/project/public/authorization/logout"> Logout </a>
                     <div class="navbar__dropdown-blur navbar__dropdown-blur--bottom"></div>
             </div>
         </div>

@@ -6,6 +6,9 @@ let exerciseListElement = document.getElementById("exerciseListElement");
 let saveBtn = document.getElementById("saveBtn");
 var exercisesList;
 var currentPage = 0, currentState;
+var editedExerciseID;
+const NEW_EXERCISE = 0, EDIT_EXERCISE = 1, VIEWER_PAGE = 0, EDITOR_PAGE = 1 ;
+
 
 async function switchToViewerArea(){
     viewerArea.classList.remove('settings-area--hidden');
@@ -22,26 +25,27 @@ async function switchToEditorArea() {
 }
 
 async function newExercise() {
-    if (!currentPage) {
-        currentState = 0;
-        currentPage = 1;
+    if (currentPage == VIEWER_PAGE) {
+        currentState = NEW_EXERCISE;
+        currentPage = EDITOR_PAGE;
         switchToEditorArea();
         await setExerciseDetails(null);
     }
 }
 
 async function discardChanges() {
-    if (currentPage) {
-        currentPage = 0;
+    if (currentPage == EDITOR_PAGE) {
+        currentPage = VIEWER_PAGE;
         switchToViewerArea();
     }
 }
 
-async function editExercise(exerciseName) {
-    currentPage = 1;
-    currentState = 1;
+async function editExercise(exerciseID) {
+    currentPage = EDITOR_PAGE;
+    currentState = EDIT_EXERCISE;
+    editedExerciseID = exerciseID;
     switchToEditorArea();
-    exercise = await getExerciseDetails(exerciseName);
+    exercise = await getExerciseDetails(exerciseID);
     await setExerciseDetails(exercise);
 }
 
@@ -76,8 +80,8 @@ async function resetCheckboxes() {
     }
 }
 
-const getExerciseDetails = async (exerciseName) => {
-    var uri = "http://92.115.143.213:3000/project/api/exercises/" + exerciseName.replace(/ /g, "%20");
+const getExerciseDetails = async (exerciseID) => {
+    var uri = "http://92.115.143.213:3000/project/api/exercises/" + exerciseID;
     const response = await fetch(uri, {
         method: 'GET',
         headers: {
@@ -100,13 +104,96 @@ const getExercises = async () => {
     return responseBody;
 }
 
-async function saveExercise() {
-    exercise = getExerciseFromPage();
-    console.log(exercise);
+const postExercise = async (exercise) => {
+    var requestBody = JSON.stringify(exercise);
+    console.log(requestBody);
+    var uri = "http://92.115.143.213:3000/project/api/exercises";
+    const response = await fetch(uri, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: requestBody
+    });
+    const responseBody = await response.json();
+    return responseBody;
 }
 
+const putExercise = async (exerciseID, exercise) => {
+    var requestBody = JSON.stringify(exercise);
+    var uri = "http://92.115.143.213:3000/project/api/exercises/" + exerciseID;
+    const response = await fetch(uri, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: requestBody
+    });
+    const responseBody = await response.json();
+    return responseBody;
+};
+
+const deleteExercise = async (exerciseID) => {
+    var uri = "http://92.115.143.213:3000/project/api/exercises/" + exerciseID;
+    const response = await fetch(uri, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json'
+        }
+    });
+    const responseBody = await response.json();
+    return responseBody;
+}
+
+const restoreExercise = async (exerciseID) => {
+    var uri = "http://92.115.143.213:3000/project/api/exercises/" + exerciseID;
+    const response = await fetch(uri, {
+        method: 'PATCH',
+        headers: {
+            'Accept': 'application/json'
+        }
+    });
+    const responseBody = await response.json();
+    return responseBody;
+}
+
+async function saveExercise() {
+    exercise = getExerciseFromPage();
+    var response;
+    if (currentState == NEW_EXERCISE) {
+        response = await postExercise(exercise);
+        await appendExerciseToPage(response["description"], exercise["name"], false);
+        await setListBackgroundColour();
+    }
+    else {
+        response = await putExercise(editedExerciseID, exercise);
+        document.getElementById("paragraph" + editedExerciseID).innerHTML = exercise["name"];
+    }
+    currentPage = VIEWER_PAGE;
+    switchToViewerArea();
+}
+
+async function deleteExerciseHandler(exerciseID) {
+    response = await deleteExercise(exerciseID);
+    exerciseButton = document.getElementById("exerciseChange" + exerciseID);
+    newButton = exerciseButton.cloneNode(true);
+    newButton.innerHTML = "Restore";
+    newButton.addEventListener('click', function(){ restoreExerciseHandler(exerciseID)});
+    exerciseButton.parentNode.replaceChild(newButton, exerciseButton);
+}
+
+async function restoreExerciseHandler(exerciseID) {
+    response = await restoreExercise(exerciseID);
+    exerciseButton = document.getElementById("exerciseChange" + exerciseID);
+    newButton = exerciseButton.cloneNode(true);
+    newButton.innerHTML = "Delete";
+    newButton.addEventListener('click', function(){ deleteExerciseHandler(exerciseID)});
+    exerciseButton.parentNode.replaceChild(newButton, exerciseButton);
+}
+
+
 function getExerciseFromPage() {
-    var exercise = [];
+    var exercise = {};
     exercise["name"] = document.getElementById("nameInput").value;
     exercise["videoURL"] = document.getElementById("linkInput").value;
     exercise["duration"] = document.getElementById("durationInput").value;
@@ -129,29 +216,39 @@ function getExerciseFromPage() {
     return exercise;
 }
 
+async function appendExerciseToPage(exerciseID, exerciseName, wasDeleted) {
+    var exerciseElement = 
+        `<li id=listItem"` + exerciseID + `"> 
+        <p id="paragraph` + exerciseID + `" class="list-area__paragraph list-area__paragraph--left">` + exerciseName + `</p> 
+        <form class="list-area__form">
+            <button id="exercise` + exerciseID +`" class="list-area__button list-area__button--view" type="button">Edit</button>
+            ` + await getExerciseButton(exerciseID, wasDeleted) + `
+        </form>
+        </li>`;
+    exerciseListElement.innerHTML += exerciseElement;
+    document.getElementById("exercise" + exerciseID).addEventListener('click', function(){ editExercise(exerciseID)});
+    if (wasDeleted) {
+        document.getElementById("exerciseChange" + exerciseID).addEventListener('click', function(){ restoreExerciseHandler(exerciseID)});
+    }
+    else {
+        document.getElementById("exerciseChange" + exerciseID).addEventListener('click', function(){ deleteExerciseHandler(exerciseID)});
+    }
+}
+
 async function initialize() {
     exercisesList = await getExercises();
     for (exercise of exercisesList) {
-        var exerciseElement = 
-        `<li> 
-        <p class="list-area__paragraph list-area__paragraph--left">` + exercise["name"] + `</p> 
-        <form class="list-area__form">
-            <button id="` + exercise["name"] +`" class="list-area__button list-area__button--view" type="button">Edit</button>
-            ` + await getExerciseButton(exercise) + `
-        </form>
-        </li>`;
-        exerciseListElement.innerHTML += exerciseElement;
-        document.getElementById(exercise["name"]).addEventListener('click', function(){ editExercise(exercise["name"])});
+        await appendExerciseToPage(exercise["id"], exercise["name"], exercise["wasDeleted"]);
     }
     await setListBackgroundColour();
 }
 
-async function getExerciseButton(exercise) {
-    if (exercise["wasDeleted"]) {
-        return `<button id="` + exercise["name"] + `" class="list-area__button list-area__button--delete" type="submit">Restore</button>`;
+async function getExerciseButton(exerciseID, wasDeleted) {
+    if (wasDeleted) {
+        return `<button id="exerciseChange` + exerciseID + `" class="list-area__button list-area__button--delete" type="button">Restore</button>`;
     }
     else {
-        return `<button id="` + exercise["name"] + `" class="list-area__button list-area__button--delete" type="submit">Delete</button>`;
+        return `<button id="exerciseChange` + exerciseID + `" class="list-area__button list-area__button--delete" type="button">Delete</button>`;
     }
 }
 
