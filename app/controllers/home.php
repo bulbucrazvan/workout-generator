@@ -11,8 +11,7 @@ class Home extends Controller {
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
         $response = json_decode(curl_exec($curlHandle), true);
 
-        require_once(APP_MODELS . "UserHomePage.php");
-        $userHomepage = new UserHomePage();
+        $userHomepage = $this->model("UserHomePage");
         foreach ($userHomepage as $key => $value) {
             if (isset($response[$key])) {
                 $userHomepage->setInfo($key, $response[$key]);
@@ -38,14 +37,6 @@ class Home extends Controller {
 
     public function workoutHistory(){
         $this->view('home/workoutHistory');
-    }
-
-    public function userWorkouts(){
-        $this->view('home/userworkouts');
-    }
-
-    public function workoutViewer(){
-        $this->view('home/workoutViewer');
     }
 
     public function startWorkout() {

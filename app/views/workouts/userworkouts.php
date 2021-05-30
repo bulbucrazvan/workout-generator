@@ -22,48 +22,19 @@
             </div>
             <div class="main-bubble__area main-bubble__area--list-area">
                 <ul class="list-area__list">
-                <li> 
-                    <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
-                    <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="button">Start</button>
-                        <button class="list-area__button list-area__button--view" type="button">View</button>
-                    </form>
-                </li>
-                <li> 
-                    <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
-                    <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="button">Start</button>
-                        <button class="list-area__button list-area__button--view" type="button">View</button>
-                    </form>
-                </li>
-                <li> 
-                    <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
-                    <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="button">Start</button>
-                        <button class="list-area__button list-area__button--view" type="button">View</button>
-                    </form>
-                </li>
-                <li> 
-                    <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
-                    <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="button">Start</button>
-                        <button class="list-area__button list-area__button--view" type="button">View</button>
-                    </form>
-                </li>
-                <li> 
-                    <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
-                    <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="button">Start</button>
-                        <button class="list-area__button list-area__button--view" type="button">View</button>
-                    </form>
-                </li>
-                <li> 
-                    <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
-                    <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="button">Start</button>
-                        <button class="list-area__button list-area__button--view" type="button">View</button>
-                    </form>
-                </li>
+                <?php
+                    foreach ($data as $workout) {
+                        echo "
+                            <li> 
+                                <p class=\"list-area__paragraph list-area__paragraph--left\">" . $workout['workoutName'] . "</p> 
+                                <form class=\"list-area__form\">
+                                    <button type=\"button\" class=\"list-area__button list-area__button--start\" >Start</button>
+                                    <button type=\"button\" class=\"list-area__button list-area__button--view\" onclick=\"location.href='/project/public/workouts/edit/" . $workout['workoutID'] ."';\">View</button>
+                                </form>
+                            </li>
+                        ";
+                    }
+                ?>
                 </ul>
             </div>
             <div class="main-bubble__area main-bubble__area--new-workout">
@@ -83,4 +54,7 @@
 
 
 <script src="/project/public/javascript/listbackgroundselector.js"></script>
+<script>
+    setListBackgroundColour("list-area__list", "");
+</script>
 

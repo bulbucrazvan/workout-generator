@@ -5,9 +5,17 @@
 .main-bubble__area--button-area {
     height: 12%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.button-area__form {
+    font-size: 2.5vh;
+}
+
+.button-area__form-input {
+    font-size: 1.8vh;
 }
 
 .button-area__button {
@@ -17,6 +25,11 @@
 
 .button-area__button--save {
     background-color: rgba(18, 130, 26);
+}
+
+.button-area__button--delete {
+    background-color: red;
+    text-shadow: 1px 1px black;
 }
 
 .button-area__button--new {

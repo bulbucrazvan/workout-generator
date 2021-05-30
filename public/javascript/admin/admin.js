@@ -173,22 +173,18 @@ async function saveExercise() {
     switchToViewerArea();
 }
 
-async function deleteExerciseHandler(exerciseID) {
+async function deleteExerciseHandler(buttonElement) {
+    exerciseID = buttonElement.id.replace('exerciseChange', '');
     response = await deleteExercise(exerciseID);
-    exerciseButton = document.getElementById("exerciseChange" + exerciseID);
-    newButton = exerciseButton.cloneNode(true);
-    newButton.innerHTML = "Restore";
-    newButton.addEventListener('click', function(){ restoreExerciseHandler(exerciseID)});
-    exerciseButton.parentNode.replaceChild(newButton, exerciseButton);
+    buttonElement.value = 'restore';
+    buttonElement.innerHTML = 'Restore';
 }
 
-async function restoreExerciseHandler(exerciseID) {
+async function restoreExerciseHandler(buttonElement) {
+    exerciseID = buttonElement.id.replace('exerciseChange', '');
     response = await restoreExercise(exerciseID);
-    exerciseButton = document.getElementById("exerciseChange" + exerciseID);
-    newButton = exerciseButton.cloneNode(true);
-    newButton.innerHTML = "Delete";
-    newButton.addEventListener('click', function(){ deleteExerciseHandler(exerciseID)});
-    exerciseButton.parentNode.replaceChild(newButton, exerciseButton);
+    buttonElement.value = 'delete';
+    buttonElement.innerHTML = 'Delete';
 }
 
 
@@ -221,7 +217,7 @@ async function appendExerciseToPage(exerciseID, exerciseName, wasDeleted) {
         `<li id=listItem"` + exerciseID + `"> 
         <p id="paragraph` + exerciseID + `" class="list-area__paragraph list-area__paragraph--left">` + exerciseName + `</p> 
         <form class="list-area__form">
-            <button id="exercise` + exerciseID +`" class="list-area__button list-area__button--view" type="button">Edit</button>
+            <button id="exerciseEdit` + exerciseID +`" class="list-area__button list-area__button--view" type="button">Edit</button>
             ` + await getExerciseButton(exerciseID, wasDeleted) + `
         </form>
         </li>`;
@@ -235,29 +231,15 @@ async function initialize() {
             await appendExerciseToPage(exercise["id"], exercise["name"], exercise["wasDeleted"]);
         }()); 
     }
-    for (var i = 0; i < exercisesList.length; i++) {
-        (function() {
-            var exercise = exercisesList[i];
-            var wasDeleted = exercise["wasDeleted"];
-            var exerciseID = exercise["id"];
-            document.getElementById("exercise" + exerciseID).addEventListener('click', function(){ editExercise(exerciseID)});
-            if (wasDeleted) {
-                document.getElementById("exerciseChange" + exerciseID).addEventListener('click', function(){ restoreExerciseHandler(exerciseID)});
-            }
-            else {
-                document.getElementById("exerciseChange" + exerciseID).addEventListener('click', function(){ deleteExerciseHandler(exerciseID)});
-            }
-        }());
-    }
     setListBackgroundColour("list-area__list", "");
 }
 
 async function getExerciseButton(exerciseID, wasDeleted) {
     if (wasDeleted) {
-        return `<button id="exerciseChange` + exerciseID + `" class="list-area__button list-area__button--delete" type="button">Restore</button>`;
+        return `<button id="exerciseChange` + exerciseID + `" class="list-area__button list-area__button--delete" value="restore" type="button">Restore</button>`;
     }
     else {
-        return `<button id="exerciseChange` + exerciseID + `" class="list-area__button list-area__button--delete" type="button">Delete</button>`;
+        return `<button id="exerciseChange` + exerciseID + `" class="list-area__button list-area__button--delete" value="delete" type="button">Delete</button>`;
     }
 }
 
@@ -266,3 +248,17 @@ initialize();
 editorBtn.addEventListener('click', newExercise);
 exercisesBtn.addEventListener('click', discardChanges);
 saveBtn.addEventListener('click', saveExercise);
+exerciseListElement.addEventListener('click', function(event) {
+    event.preventDefault();
+    if (event.target.id.includes('exerciseChange')) {
+        if (event.target.value == 'restore') {
+            restoreExerciseHandler(event.target);
+        }
+        else {
+            deleteExerciseHandler(event.target);
+        }
+    }
+    else if (event.target.id.includes('exerciseEdit')) {
+        editExercise(event.target.id.replace('exerciseEdit', ''));
+    }
+})

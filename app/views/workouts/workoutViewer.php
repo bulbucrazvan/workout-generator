@@ -19,7 +19,7 @@
     <main>
         <section class="main-bubble">
             <div class="main-bubble__area main-bubble__area--filter-area"> 
-                <p class="filter-area__workout-name"> Manual Workout </p>
+                <p id="workoutNameLabel"class="filter-area__workout-name"> Workout 1 </p>
                 <div id="addExerciseArea" class="filter-area__add-exercise-area">
                     <button id="addExerciseButton" class="add-exercise-area__button"> Add exercise </button>
                     <div class="add-exercise-area__dropdown add-exercise-area__blur-area"></div>
@@ -36,7 +36,8 @@
                     <label> Name: </label>
                     <input id="workoutName" class="button-area__form-input" type="text" placeholder="Workout name">
                 </form>
-                <button id="postBtn" class="list-area__button button-area__button button-area__button--save"> Save </button>
+                <button id="putBtn" class="list-area__button button-area__button button-area__button--save"> Save </button>
+                <button id="deleteBtn" class="list-area__button button-area__button button-area__button--delete"> Delete </button>
             </div>
         </section>
     </main>
@@ -48,6 +49,7 @@
 
 <script>
     var userID = "<?php echo $_SESSION['SESSION_USER']; ?>";
+    var workoutID = "<?php echo $data;?>";
 </script>
 
 <script src="/project/public/javascript/listbackgroundselector.js"></script>
@@ -56,4 +58,4 @@
 
 <script src="/project/public/javascript/workouts/create.js"></script>
 
-
+<script src="/project/public/javascript/workouts/edit.js"></script>

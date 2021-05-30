@@ -26,15 +26,14 @@
                 <div class="settings-area__setting">
                     <p> User Data </p>
                     <div class="settings-area__setting--indented">
-                        <div class="setting__form--separator">
+                        <div id="genderDiv" class="setting__form--separator">
                             <p class="output-area--inline"> Gender: </p>
-                            <p class="output-area output-area--inline"> Male </p>
                         </div>
                         <div class="setting__form--separator">
                             <form class="setting__form">
                                 <div class="setting__form--separator">
                                     <label> Date of birth: </label>
-                                    <input class="output-area" type="date" value="2000-01-01">
+                                    <input id="dateOfBirth" class="output-area" type="date">
                                 </div> 
                             </form>
                         </div>
@@ -42,7 +41,7 @@
                             <form class="setting__form">
                                 <div class="setting__form--separator">
                                     <label> Height: </label>
-                                    <input class="output-area" type="number" value="170">
+                                    <input id="height" class="output-area" type="number">
                                 </div> 
                             </form>
                         </div>
@@ -50,14 +49,14 @@
                             <form class="setting__form">
                                 <div class="setting__form--separator">
                                     <label> Weight: </label>
-                                    <input class="output-area" type="number" value="60">
+                                    <input id="weight" class="output-area" type="number" value="60">
                                 </div> 
                             </form>
                         </div>
                     </div>
                 </div>
                 <div class="settings-area__button-area">
-                    <button class="settings-area__save-button"> Save </button>
+                    <button id="userSettingsSaveBtn" class="settings-area__save-button"> Save </button>
                 </div>
             </div>
             <div id="accountSettingsArea" class="settings-area settings-area--hidden"> 
@@ -65,18 +64,18 @@
                     <p> Account Username </p>
                     <div class="settings-area__setting--indented"> 
                         <p> Username: </p>
-                        <p class="output-area"> User1 </p> 
+                        <p id="username" class="output-area"></p> 
                     </div>
                 </div>
                 <div class="settings-area__setting">
                     <p> Account E-Mail </p>
                     <div class="settings-area__setting--indented">
                         <p> Current E-Mail: </p>
-                        <p class="output-area"> user1@email.com </p> 
+                        <p id="email" class="output-area"> user1@email.com </p> 
                         <form class="setting__form">
                             <div class="setting__form--separator">
                                 <label> New E-Mail: </label>
-                                <input class="output-area" type="email" placeholder="Insert e-mail">
+                                <input id="newEmail" class="output-area" type="email" placeholder="Insert e-mail">
                             </div>
                         </form>
                     </div> 
@@ -87,21 +86,21 @@
                         <form class="setting__form">
                             <div class="setting__form--separator">
                                 <label> Current password: </label>
-                                <input type="password" class="output-area">
+                                <input id="currentPassword" type="password" class="output-area">
                             </div>
                             <div class="setting__form--separator">
                                 <label> New password: </label>
-                                <input type="password" class="output-area">
+                                <input id="newPassword" type="password" class="output-area">
                             </div>
                             <div class="setting__form--separator">
                                 <label> Re-type password: </label>
-                                <input type="password" class="output-area">
+                                <input id="retypePassword" type="password" class="output-area">
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="settings-area__button-area">
-                    <button class="settings-area__save-button"> Save </button>
+                    <button id="accountSettingsSaveBtn" class="settings-area__save-button"> Save </button>
                 </div>
             </div>
         </div>
@@ -114,25 +113,9 @@
 </html>
 
 <script>
-    let userSettings = document.getElementById("userSettingsBtn");
-    let accountSettings = document.getElementById("accountSettingsBtn");
-    let userSettingsArea = document.getElementById("userSettingsArea");
-    let accountSettingsArea = document.getElementById("accountSettingsArea");
-
-
-    userSettings.addEventListener('click', function() {
-        userSettingsArea.classList.remove('settings-area--hidden');
-        accountSettingsArea.classList.add('settings-area--hidden');
-        userSettings.classList.add('tab-area__button--selected');
-        accountSettings.classList.remove("tab-area__button--selected");
-    })
-
-    accountSettings.addEventListener('click', function() {
-        userSettingsArea.classList.add('settings-area--hidden');
-        accountSettingsArea.classList.remove('settings-area--hidden');
-        userSettings.classList.remove('tab-area__button--selected');
-        accountSettings.classList.add("tab-area__button--selected");
-    })
+    var userID = "<?php echo $_SESSION['SESSION_USER'];?>"
 </script>
+
+<script src="/project/public/javascript/settings.js"></script>
 
 

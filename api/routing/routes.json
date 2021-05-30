@@ -44,11 +44,11 @@
                 {
                     "name": "userID",
                     "isParameter": true,
-                    "acceptedMethods": ["GET"],
-                    "methodHandlers": ["getUser"],
-                    "requestBodyModel": [null],
-                    "stringQueries": [[]],
-                    "stringQueryDefaults": [[]],
+                    "acceptedMethods": ["GET", "PUT"],
+                    "methodHandlers": ["getUser", "updateUser"],
+                    "requestBodyModel": [null, "UserUpdateDTO"],
+                    "stringQueries": [[], []],
+                    "stringQueryDefaults": [[], []],
                     "subroutes": [
                         {
                             "name": "workouts",
@@ -72,11 +72,11 @@
                                 {
                                     "name": "workoutID",
                                     "isParameter": true,
-                                    "acceptedMethods": ["DELETE"],
-                                    "methodHandlers": ["deleteWorkout"],
-                                    "requestBodyModel": [null],
-                                    "stringQueries": [[]],
-                                    "stringQueryDefaults": [[]],
+                                    "acceptedMethods": ["DELETE", "GET", "PUT"],
+                                    "methodHandlers": ["deleteWorkout", "getWorkout", "updateWorkout"],
+                                    "requestBodyModel": [null, null, "WorkoutCreationDTO"],
+                                    "stringQueries": [[], [], []],
+                                    "stringQueryDefaults": [[], [], []],
                                     "subroutes": []
                                 }
                             ]

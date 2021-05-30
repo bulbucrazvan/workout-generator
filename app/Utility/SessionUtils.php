@@ -19,6 +19,7 @@
 
         public static function logout() {
             session_unset();
+            session_destroy();
         }
 
     }

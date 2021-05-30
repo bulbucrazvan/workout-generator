@@ -8,6 +8,7 @@ class UserHomePage extends Model {
     public $lastWorkout;
     public $workoutsCompleted;
 
+    
 }
 
 ?>

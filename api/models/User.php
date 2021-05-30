@@ -4,7 +4,6 @@
     class User extends Model {
         
         public $username;
-        public $password;
         public $email;
         public $gender;
         public $dateOfBirth;

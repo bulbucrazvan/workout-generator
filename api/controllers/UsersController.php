@@ -84,7 +84,7 @@
                 die();
             }
 
-            $queryStatement = $this->databaseConnection->prepare("SELECT * FROM users WHERE id = ?");
+            $queryStatement = $this->databaseConnection->prepare("SELECT username, email, gender, dateOfBirth, height, weight, currentStreak, longestStreak, workoutsCompleted, canCreate FROM users WHERE id = ?");
             $queryStatement->bind_param('i', $params["userID"]);
             $queryStatement->execute();
             $result = $queryStatement->get_result();
@@ -101,9 +101,63 @@
             foreach ($row as $key => $value) {
                 $user->setInfo($key, $value);
             }
+            if ($row["gender"]) {
+                $user->setInfo("gender", "Male");
+            }
+            else {
+                $user->setInfo("gender", "Female");
+            }
         
             http_response_code(200);
             echo json_encode($user);
+        }
+
+        //PUT: /users/{userID} -- updates user
+        public function updateUser($params, $queryParams, $requestBody) {
+            if (!$requestBody->type) {
+                if (!strtotime($requestBody->dateOfBirth)) {
+                    http_response_code(400);
+                    echo json_encode(new Response(2, "Bad DOB"));
+                    die();
+                }
+                if (!$this->inRange($requestBody->height, 50, 300) || !$this->inRange($requestBody->weight, 30, 250)) {
+                    http_response_code(400);
+                    echo json_encode(new Response(3, "Bad weight or height"));
+                    die();
+                }
+                $date = new DateTime($requestBody->dateOfBirth);
+                $mySQLDate = $date->format('Y-m-d');
+                $queryStatement = $this->databaseConnection->prepare("UPDATE users
+                                                                      SET gender = ?, dateOfBirth = ?, height = ?, weight = ?
+                                                                      WHERE id = ?
+                                                                      ");
+                $queryStatement->bind_param('isiii', $requestBody->gender, $mySQLDate, $requestBody->height, $requestBody->weight, $params["userID"]);
+                $queryStatement->execute();
+                http_response_code(200);
+                echo json_encode(new Response(0, "Successfully updated"));
+            }
+            else {
+                $responseString = "";
+                if ($requestBody->type == 1 || $requestBody->type == 3) {
+                    if (!$this->checkUserPassword($params["userID"], $requestBody->oldPassword)) {
+                        http_response_code(403);
+                        echo json_encode(new Response(1, "Wrong password."));
+                        die();
+                    }
+                    $queryStatement = $this->databaseConnection->prepare("UPDATE users SET password = ? WHERE id = ?");
+                    $queryStatement->bind_param('si', $requestBody->newPassword, $params["userID"]);
+                    $queryStatement->execute();
+                    $responseString .= "Password updated. ";
+                }
+                if ($requestBody->type == 2 || $requestBody->type == 3) {
+                    $queryStatement = $this->databaseConnection->prepare("UPDATE users SET email = ? WHERE id = ?");
+                    $queryStatement->bind_param('si', $requestBody->email, $params["userID"]);
+                    $queryStatement->execute();
+                    $responseString .= "Email updated.";
+                }
+                http_response_code(200);
+                echo json_encode(new Response(0, $responseString));
+            }
         }
 
         //GET: /users/{userID}/workouts -- gets user workouts(name and id)
@@ -142,24 +196,90 @@
 
             $exercises = $requestBody->exercises;
             $duration = $this->getExercisesDuration($exercises);
+            $workoutName = $this->constructWorkoutName($requestBody->workoutName, $params["userID"]);
             $addWorkoutStatement = "INSERT INTO workouts VALUES (NULL, ?, ?, $duration, 0)";
             $queryStatement = $this->databaseConnection->prepare($addWorkoutStatement);
-            $queryStatement->bind_param('is', $params["userID"], $requestBody->workoutName);
+            $queryStatement->bind_param('is', $params["userID"], $workoutName);
             $queryStatement->execute();
 
             $workoutID = $this->getWorkoutID($requestBody->workoutName);
-            $addWorkoutAssociationStatement = 'INSERT INTO workout_exercises VALUES ';
-            for ($i = 0; $i < count($exercises); $i++) {
-                $exercise = $exercises[$i];
-                $association = "($workoutID, $exercise),";
-                $addWorkoutAssociationStatement .= $association;
-            };
-            $addWorkoutAssociationStatement = rtrim($addWorkoutAssociationStatement, ',');
-            $queryStatement = $this->databaseConnection->prepare($addWorkoutAssociationStatement);
-            $queryStatement->execute();
+            $this->addWorkoutExercisesAssociations($workoutID, $exercises);
 
             http_response_code(201);
             echo json_encode(new Response(0, $workoutID));
+        }
+
+        //GET: /users/{userID}/workouts/{workoutID} -- get workout
+        public function getWorkout($params, $queryParams, $requestBody) {
+            if (!is_numeric($params["workoutID"])) {
+                http_response_code(400);
+                echo json_encode(new Response(2, "Bad workoutID"));
+                die();
+            }
+            $userID = $params["userID"];
+            $workoutID = $params["workoutID"];
+            $queryStatement = $this->databaseConnection->prepare("SELECT name, duration, wasDeleted 
+                                                                  FROM workouts 
+                                                                  WHERE workoutID = $workoutID
+                                                                  AND userID = $userID");
+            $queryStatement->execute();
+            $result = $queryStatement->get_result();
+            if ($result->num_rows) {
+                $row = $result->fetch_assoc();
+                require_once("../models/Workout.php");
+                $workout = new Workout();
+                foreach ($row as $key => $value) {
+                    $workout->setInfo($key, $value); 
+                }
+                $workout->setInfo("id", $workoutID);
+                $workout->setInfo("exercises", $this->getWorkoutExercises($workoutID));
+                http_response_code(200);
+                echo json_encode($workout);
+            }
+            else {
+                http_response_code(404);
+                echo json_encode(new Response(1, "Workout not found"));
+            }
+        }
+
+        //PUT: /users/{userID}/workouts/{workoutID} -- updates workout
+        public function updateWorkout($params, $queryParams, $requestBody) {
+            if (!is_numeric($params["workoutID"])) {
+                http_response_code(400);
+                echo json_encode(new Response(1, "Bad workoutID"));
+                die();
+            }
+            if (!count($requestBody->exercises)) {
+                http_response_code(400);
+                echo json_encode(new Response(2, "Workout needs to have at least 1 exercise."));
+                die();
+            }
+
+            $workoutID = $params["workoutID"];
+            $userID = $params["userID"];
+            if (!$this->checkWorkoutBelongsToUser($userID, $workoutID)) {
+                http_response_code(403);
+                echo json_encode(new Response(2, "Workout doesn't belong to user"));
+                die();
+            }
+
+            $duration = $this->getExercisesDuration($requestBody->exercises);
+            if ($requestBody->workoutName) {
+                $queryStatement = $this->databaseConnection->prepare("UPDATE workouts
+                                                                      SET name = ?, duration = $duration
+                                                                      WHERE workoutID = $workoutID");
+                $queryStatement->bind_param('s', $requestBody->workoutName);
+                $queryStatement->execute();
+            }
+            else {
+                $this->databaseConnection->prepare("UPDATE workouts
+                                                    SET duration = $duration
+                                                    WHERE workoutID = $workoutID");
+            }
+
+            $this->updateWorkoutExercises($workoutID, $requestBody->exercises);
+            http_response_code(200);
+            echo json_encode(new Response(0, "Successfuly updated"));
         }
 
         //DELETE: /users/{userID}/workouts/{workoutID}
@@ -307,6 +427,66 @@
                 $totalDuration += $row["duration"];
             }
             return $totalDuration;
+        }
+
+        private function constructWorkoutName($workoutName, $userID) {
+            if ($workoutName) {
+                return $workoutName;
+            }
+            $result = $this->databaseConnection->query("SELECT COUNT(*) FROM workouts WHERE userID = $userID");
+            $row = $result->fetch_row();
+            return "Workout" . $row[0];
+        }
+
+        private function getWorkoutExercises($workoutID) {
+            $result = $this->databaseConnection->query("SELECT e.id, e.name, e.wasDeleted
+                                                        FROM exercises e
+                                                        JOIN workout_exercises a ON e.id=a.exerciseID AND e.wasDeleted = 0
+                                                        JOIN workouts w ON a.workoutID=w.workoutID AND w.workoutID = $workoutID");
+            $exercises = array();
+            require_once("../models/DTO/ExerciseDTO.php");
+            while ($row = $result->fetch_assoc()) {
+                $exercise = new ExerciseDTO($row["id"], $row["name"], $row["wasDeleted"]);
+                array_push($exercises, $exercise);
+                
+            }
+            return $exercises;
+        }
+
+        private function checkWorkoutBelongsToUser($userID, $workoutID) {
+            $result = $this->databaseConnection->query("SELECT EXISTS(SELECT * FROM workouts WHERE userID = $userID AND workoutID = $workoutID)");
+            $row = $result->fetch_row();
+            return $row[0]; 
+        }
+
+        private function addWorkoutExercisesAssociations($workoutID, $exercises) {
+            $addWorkoutAssociationStatement = 'INSERT INTO workout_exercises VALUES ';
+            for ($i = 0; $i < count($exercises); $i++) {
+                $exercise = $exercises[$i];
+                $association = "($workoutID, $exercise),";
+                $addWorkoutAssociationStatement .= $association;
+            };
+            $addWorkoutAssociationStatement = rtrim($addWorkoutAssociationStatement, ',');
+            $queryStatement = $this->databaseConnection->prepare($addWorkoutAssociationStatement);
+            $queryStatement->execute();
+        }
+
+        private function updateWorkoutExercises($workoutID, $exercises) {
+            $this->databaseConnection->query("DELETE FROM workout_exercises WHERE workoutID = $workoutID");
+            $this->addWorkoutExercisesAssociations($workoutID, $exercises);
+        }
+
+        private function checkUserPassword($userID, $password) {
+            $queryStatement = $this->databaseConnection->prepare("SELECT EXISTS(SELECT * FROM users WHERE id = ? AND password = ?)");
+            $queryStatement->bind_param('is', $userID, $password);
+            $queryStatement->execute();
+            $result = $queryStatement->get_result();
+            $row = $result->fetch_row();
+            return $row[0];
+        }
+
+        private function inRange($value, $min, $max) {
+            return ($min <= $value) && ($value <= $max);
         }
 
     }
