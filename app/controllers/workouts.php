@@ -28,9 +28,9 @@
             $this->view('workouts/generateWorkout', $response);
         }
 
-        public function generatedWorkout() {
+        public function generatedWorkout($workout = '') {
 
-            $this->view('workouts/generatedWorkout');
+            $this->view('workouts/generatedWorkout', $workout);
         }
 
         public function edit($workout = '') {

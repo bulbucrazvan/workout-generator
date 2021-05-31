@@ -68,6 +68,9 @@ async function generateWorkout() {
         if ('statusCode' in response) {
             window.alert(response['description']);
         }
+        else {
+            window.location.href = '/project/public/workouts/generatedWorkout/' + JSON.stringify(response);
+        }
     }
     
 }
