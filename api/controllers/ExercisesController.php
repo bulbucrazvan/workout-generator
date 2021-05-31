@@ -59,7 +59,7 @@
             $exerciseId = $params["exerciseID"];
             if (!is_numeric($exerciseId)) {
                 http_response_code(400);
-                echo json_encode(new Response(1, "ID must be a number"));
+                echo json_encode(new Response(1, "Bad exerciseID"));
                 die();
             }
 
@@ -109,7 +109,7 @@
             $exerciseId = $params["exerciseID"];
             if (!is_numeric($exerciseId)) {
                 http_response_code(400);
-                echo json_encode(new Response(3, "ID must be a number"));
+                echo json_encode(new Response(3, "Bad exerciseID"));
                 die();
             }
             
@@ -137,7 +137,7 @@
             }
             else {
                 http_response_code(200);
-                echo json_encode(new Response(5, "Exercise didn't have to be modified."));
+                echo json_encode(new Response(0, "Exercise didn't have to be modified."));
             }
             
         }
@@ -178,13 +178,13 @@
 
         //GET: /exercises/locationTypes -- gets locations where exercises can be performed
         public function getLocationTypes($params, $queryParams, $requestBody) {
-            $queryStatement = $this->databaseConnection->prepare('SELECT location FROM locations');
+            $queryStatement = $this->databaseConnection->prepare('SELECT id, location FROM locations');
             $queryStatement->execute();
             $result = $queryStatement->get_result();
 
             $locations = array();
             while ($row = $result->fetch_assoc()) {
-                array_push($locations, $row["location"]);
+                array_push($locations, [$row['id'], $row["location"]]);
             }
 
             http_response_code(200);
@@ -193,13 +193,13 @@
 
         //GET: /exercises/muscleTypes -- gets muscle groups that exercises can work
         public function getMuscleTypes($params, $queryParams, $requestBody) {
-            $queryStatement = $this->databaseConnection->prepare('SELECT muscleGroup FROM muscle_groups');
+            $queryStatement = $this->databaseConnection->prepare('SELECT id, muscleGroup FROM muscle_groups');
             $queryStatement->execute();
             $result = $queryStatement->get_result();
 
             $muscleGroups = array();
             while ($row = $result->fetch_assoc()) {
-                array_push($muscleGroups, $row["muscleGroup"]);
+                array_push($muscleGroups, [$row["id"], $row["muscleGroup"]]);
             }
 
             http_response_code(200);

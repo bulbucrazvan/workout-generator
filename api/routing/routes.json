@@ -70,6 +70,16 @@
                                     "subroutes": []
                                 },
                                 {
+                                    "name": "generate",
+                                    "isParameter": false,
+                                    "acceptedMethods": ["POST"],
+                                    "methodHandlers": ["generateWorkout"],
+                                    "requestBodyModel": ["GenerateWorkoutDTO"],
+                                    "stringQueries": [[]],
+                                    "stringQueryDefaults": [[]],
+                                    "subroutes": []
+                                },
+                                {
                                     "name": "workoutID",
                                     "isParameter": true,
                                     "acceptedMethods": ["DELETE", "GET", "PUT"],
@@ -77,7 +87,18 @@
                                     "requestBodyModel": [null, null, "WorkoutCreationDTO"],
                                     "stringQueries": [[], [], []],
                                     "stringQueryDefaults": [[], [], []],
-                                    "subroutes": []
+                                    "subroutes": [
+                                        {
+                                            "name": "complete",
+                                            "isParameter": false,
+                                            "acceptedMethods": ["POST"],
+                                            "methodHandlers": ["completeWorkout"],
+                                            "requestBodyModel": [null],
+                                            "stringQueries": [[]],
+                                            "stringQueryDefaults": [[]],
+                                            "subroutes": []
+                                        }
+                                    ]
                                 }
                             ]
                         }

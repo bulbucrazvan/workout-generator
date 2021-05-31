@@ -56,3 +56,7 @@
 .button-area__button--next {
     background-color: rgba(110, 13, 13, 0.7);
 }
+
+.button-area__button--hidden {
+    display: none;
+}

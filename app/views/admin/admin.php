@@ -48,8 +48,8 @@
                                 <label> Muscle Groups: </label>
                                     <div id="muscleCheckboxes" class="selector-area__input-area output-area">
                                         <?php
-                                            foreach ($data["muscles"] as $muscle) {
-                                                echo "<input id='muscle" . $muscle . "' type='checkbox'> $muscle </input>\n";
+                                            foreach ($data["muscles"] as $key => $value) {
+                                                echo "<input id='muscle" . $value[1] . "' type='checkbox'>" . $value[1] . " </input>\n";
                                             }
                                         ?>
                                     </div>      
@@ -58,8 +58,8 @@
                                 <label> Location: </label>
                                     <div id="locationCheckboxes" class="selector-area__input-area output-area">
                                         <?php
-                                            foreach ($data["locations"] as $location) {
-                                                echo "<input id='location" . $location . "' type='checkbox'> $location </input>\n";
+                                            foreach ($data["locations"] as $key => $value) {
+                                                echo "<input id='location" . $value[1] . "' type='checkbox'>" . $value[1] . "</input>\n";
                                             }
                                         ?>
                                     </div>      

@@ -259,7 +259,7 @@
             $userID = $params["userID"];
             if (!$this->checkWorkoutBelongsToUser($userID, $workoutID)) {
                 http_response_code(403);
-                echo json_encode(new Response(2, "Workout doesn't belong to user"));
+                echo json_encode(new Response(3, "Workout doesn't belong to user"));
                 die();
             }
 
@@ -339,7 +339,7 @@
                 $receivedWorkouts = array();
                 require_once("../models/DTO/WorkoutDTO.php");
                 while ($row = $result->fetch_assoc()) {
-                    $workout = new WorkoutDTO($row["w.name"], $row["w.workoutID"]);
+                    $workout = new WorkoutDTO($row["name"], $row["workoutID"]);
                     array_push($receivedWorkouts, $workout);
                 }
                 http_response_code(200);
@@ -392,6 +392,58 @@
 
             http_response_code(400);
             echo json_encode(new Response(1, "Invalid login key."));
+        }
+
+        //POST: /users/{userID}/workouts/{workoutID}/completed
+        public function completeWorkout($params, $queryParams, $requestBody) {
+            if (!$this->checkWorkoutBelongsToUser($params["userID"], $params["workoutID"])) {
+                http_response_code(403);
+                echo json_encode(new Response(1, "Workout doesn't belong to user"));
+            }
+            $currentDate = new DateTime();
+            $mySQLDate = $currentDate->format('Y-m-d H:i:s');
+            $queryStatement = $this->databaseConnection->prepare("INSERT INTO workout_history VALUES (?, ?, ?)");
+            $queryStatement->bind_param('iis', $params["userID"], $params["workoutID"], $mySQLDate);
+            $queryStatement->execute();
+            $this->updateWorkoutCount($params["userID"]);
+            http_response_code(200);
+            echo json_encode(new Response(0, "Successfully inserted"));  
+        }
+
+
+        //POST: /users/{userID}/workouts/generate
+        public function generateWorkout($params, $queryParams, $requestBody) {
+            $range = $this->getDurationRange($requestBody->durationRange);
+            $maxRange = $range['max'];
+            $currentDuration = 0;
+            $exercises = array(0);
+            $chosenExercises = array();
+            require_once(__DIR__ . "/../models/DTO/ExerciseDTO.php");
+            while (!$this->inRange($currentDuration, $range['min'], $range['max'])) {
+                $notInString = implode(",", $exercises);
+                $result = $this->databaseConnection->query("SELECT id, duration, name, wasDeleted
+                                                            FROM exercises
+                                                            WHERE id NOT IN($notInString)
+                                                            AND ($currentDuration + duration < $maxRange)");
+                if ($result->num_rows) {
+                    $pickedExercise = rand(1, $result->num_rows);
+                    $row;
+                    for ($i = 0; $i < $pickedExercise; $i++) {
+                        $row = $result->fetch_assoc();
+                    }
+                    array_push($exercises, $row["id"]);
+                    if ($this->exerciseFitsLocationAndMuscles($row["id"], $requestBody->location, $requestBody->muscleGroups)) {
+                        array_push($chosenExercises, new ExerciseDTO($row["id"], $row["name"], $row["wasDeleted"]));
+                        $currentDuration += $row["duration"];
+                    }    
+                }
+                else {
+                    http_response_code(500);
+                    echo json_encode(new Response(1, "Could not generate workout within given range."));
+                    die();
+                }
+            }
+            echo json_encode($chosenExercises);
         }
 
         private function generateLoginKey($userID) {
@@ -454,7 +506,13 @@
         }
 
         private function checkWorkoutBelongsToUser($userID, $workoutID) {
+            if (!is_numeric($workoutID)) {
+                http_response_code(400);
+                echo json_encode(new Response(10, "Bad workoutID"));
+                die();
+            }
             $result = $this->databaseConnection->query("SELECT EXISTS(SELECT * FROM workouts WHERE userID = $userID AND workoutID = $workoutID)");
+            echo $this->databaseConnection->error;
             $row = $result->fetch_row();
             return $row[0]; 
         }
@@ -488,6 +546,53 @@
         private function inRange($value, $min, $max) {
             return ($min <= $value) && ($value <= $max);
         }
+
+        private function updateWorkoutCount($userID) {
+            $this->databaseConnection->query("UPDATE users SET
+                                              currentStreak = currentStreak + 1,
+                                              workoutsCompleted = workoutsCompleted + 1
+                                              WHERE id = $userID 
+                                              ");
+            $this->databaseConnection->query("UPDATE users SET
+                                              longestStreak = longestStreak + 1
+                                              WHERE id = $userID AND currentStreak >= longestStreak");
+        }
+
+        private function getDurationRange($rangeID) {
+            $range['min'] = 0;
+            $range['max'] = 0;
+            switch ($rangeID) {
+                case 1:
+                    $range['min'] = 10;
+                    $range['max'] = 29;
+                    break;
+                case 2:
+                    $range['min'] = 30;
+                    $range['max'] = 59;
+                    break;
+                case 3:
+                    $range['min'] = 60;
+                    $range['max'] = 90;
+            }
+            return $range;
+        }
+
+        private function exerciseFitsLocationAndMuscles($exerciseID, $locationID, $muscles) {
+            $result = $this->databaseConnection->query("SELECT EXISTS(SELECT * FROM exercise_locations
+                                                                      WHERE exerciseID = $exerciseID AND locationID = $locationID)");
+            echo $this->databaseConnection->error;
+            $row = $result->fetch_row();
+            if (!$row[0]) {
+                return false;
+            }
+            $muscleInString = implode(",", $muscles);
+            $result = $this->databaseConnection->query("SELECT EXISTS(SELECT * FROM exercise_worked_muscles
+                                                                      WHERE exerciseID = $exerciseID
+                                                                      AND workedMuscleID IN ($muscleInString))");
+            $row = $result->fetch_row();
+            return $row[0];
+        }
+
 
     }
 
