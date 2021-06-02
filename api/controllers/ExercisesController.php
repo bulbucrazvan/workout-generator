@@ -17,7 +17,7 @@
             }
 
             http_response_code(200);
-            echo json_encode($exercises);
+            echo json_encode(new Response(0, $exercises));
         }
 
         //POST: /exercises -- adds exercise
@@ -76,7 +76,7 @@
                 $exercise->setInfo("locations", $this->getExerciseLocations($row["id"]));
                 $exercise->setInfo("muscles", $this->getExerciseMuscles($row["id"]));
                 http_response_code(200);
-                echo json_encode($exercise);
+                echo json_encode(new Response(0, $exercise));
             }
             else {
                 http_response_code(404);
@@ -188,7 +188,7 @@
             }
 
             http_response_code(200);
-            echo json_encode($locations);
+            echo json_encode(new Response(0, $locations));
         }
 
         //GET: /exercises/muscleTypes -- gets muscle groups that exercises can work
@@ -203,7 +203,7 @@
             }
 
             http_response_code(200);
-            echo json_encode($muscleGroups);
+            echo json_encode(new Response(0, $muscleGroups));
         }
 
         private function getLocationIDs($locations) {

@@ -89,7 +89,7 @@ const getExerciseDetails = async (exerciseID) => {
         }
     });
     const responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 }
 
 const getExercises = async () => {
@@ -101,7 +101,7 @@ const getExercises = async () => {
         }
     });
     const responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 }
 
 const postExercise = async (exercise) => {
@@ -116,7 +116,7 @@ const postExercise = async (exercise) => {
         body: requestBody
     });
     const responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 }
 
 const putExercise = async (exerciseID, exercise) => {
@@ -130,7 +130,7 @@ const putExercise = async (exerciseID, exercise) => {
         body: requestBody
     });
     const responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 };
 
 const deleteExercise = async (exerciseID) => {
@@ -142,7 +142,7 @@ const deleteExercise = async (exerciseID) => {
         }
     });
     const responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 }
 
 const restoreExercise = async (exerciseID) => {
@@ -154,7 +154,7 @@ const restoreExercise = async (exerciseID) => {
         }
     });
     const responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 }
 
 async function saveExercise() {

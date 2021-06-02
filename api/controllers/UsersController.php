@@ -17,7 +17,7 @@
             }
 
             http_response_code(200);
-            echo json_encode($receivedUsers);
+            echo json_encode(new Response(0, $receivedUsers));
         }
 
         // POST: /users - add a user to the database, requires a UserRegisterModel object as requestBody
@@ -68,7 +68,7 @@
                     array_push($receivedRanking, $user); 
                 }
                 http_response_code(200);
-                echo json_encode($receivedRanking);
+                echo json_encode(new Response(0, $receivedRanking));
             }   
             else {
                 http_response_code(400);
@@ -109,7 +109,7 @@
             }
         
             http_response_code(200);
-            echo json_encode($user);
+            echo json_encode(new Response(0, $user));
         }
 
         //PUT: /users/{userID} -- updates user
@@ -179,7 +179,7 @@
                 array_push($workouts, $workout);
             }
             http_response_code(200);
-            echo json_encode($workouts);
+            echo json_encode(new Response(0, $workouts));
         }
 
         //POST: /users/{userID}/workouts -- post new workout
@@ -234,7 +234,7 @@
                 $workout->setInfo("id", $workoutID);
                 $workout->setInfo("exercises", $this->getWorkoutExercises($workoutID));
                 http_response_code(200);
-                echo json_encode($workout);
+                echo json_encode(new Response(0, $workout));
             }
             else {
                 http_response_code(404);
@@ -322,7 +322,9 @@
             if (!is_numeric($queryParams["limit"]) || $queryParams["limit"] < 0) {
                 http_response_code(400);
                 echo json_encode(new Response(2, "Bad limit"));
+                die();
             }
+
             $order = $queryParams["order"];
             $limit = $queryParams["limit"];
             $getWorkoutHistoryStatement = "SELECT w.workoutID, w.name FROM workouts w 
@@ -343,7 +345,7 @@
                     array_push($receivedWorkouts, $workout);
                 }
                 http_response_code(200);
-                echo json_encode($receivedWorkouts);
+                echo json_encode(new Response(0, $receivedWorkouts));
             }
             else {
                 http_response_code(400);
@@ -443,7 +445,7 @@
                     die();
                 }
             }
-            echo json_encode($chosenExercises);
+            echo json_encode(new Response(0, $chosenExercises));
         }
 
         private function generateLoginKey($userID) {

@@ -139,6 +139,25 @@ option {
     background: #555;
 }
 
+.main-bubble__area--error-area {
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 2em;
+}
+
+.main-bubble__area--error-area div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-bubble__area--error-area button {
+    font-size: 1.5em;
+}
+
 @media screen and (max-width: 768px) {
     .main-bubble__area--filter-area {
         font-size: 2.5vh;

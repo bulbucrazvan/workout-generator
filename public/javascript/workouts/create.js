@@ -63,7 +63,7 @@ async function postWorkout(workout) {
         body: JSON.stringify(workout)
     });
     const responseBody = await response;
-    return responseBody;
+    return responseBody["description"];
 }
 
 async function getExercises() {
@@ -75,7 +75,7 @@ async function getExercises() {
         }
     });
     const responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 }
 
 function initializeExerciseHandlers() {

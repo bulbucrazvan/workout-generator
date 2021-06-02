@@ -12,7 +12,7 @@ async function getExercise(exerciseID) {
         }
     });
     const responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 }
 
 async function completeWorkout() {
@@ -24,7 +24,7 @@ async function completeWorkout() {
         }
     });
     const responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 }
 
 var TimerObject = (function(time) {
@@ -84,6 +84,9 @@ async function switchExercise(exerciseIndex) {
     var exercise = await getExercise(workoutExercises[exerciseIndex]['id']);
     showExercise(exercise);
     showButtons(exerciseIndex);
+    if (exerciseTimer) {
+        exerciseTimer.stop();
+    }
     exerciseTimer = new TimerObject(exercise['duration']);
 }
 

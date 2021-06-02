@@ -8,7 +8,7 @@ async function getWorkout(userID, workoutID) {
         }
     });
     var responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 }
 
 async function putWorkout(workout, workoutID) {
@@ -21,7 +21,7 @@ async function putWorkout(workout, workoutID) {
         body: JSON.stringify(workout)
     });
     const responseBody = await response;
-    return responseBody;
+    return responseBody["description"];
 }
 
 async function deleteWorkout(workoutID) {
@@ -33,7 +33,7 @@ async function deleteWorkout(workoutID) {
         },
     });
     const responseBody = await response;
-    return responseBody;
+    return responseBody["description"];
 }
 
 async function initializePage() {

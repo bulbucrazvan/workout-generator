@@ -12,7 +12,7 @@ async function getUser() {
         }
     });
     const responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 }
 
 async function putUser(user) {
@@ -25,7 +25,7 @@ async function putUser(user) {
         body: JSON.stringify(user)
     });
     const responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 }
 
 function genderToInt(gender) {

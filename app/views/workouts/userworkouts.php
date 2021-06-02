@@ -28,7 +28,7 @@
                             <li> 
                                 <p class=\"list-area__paragraph list-area__paragraph--left\">" . $workout['workoutName'] . "</p> 
                                 <form class=\"list-area__form\">
-                                    <button type=\"button\" class=\"list-area__button list-area__button--start\" >Start</button>
+                                    <button type=\"button\" class=\"list-area__button list-area__button--start\" onclick=\"location.href='/project/public/workouts/run/" . $workout['workoutID'] ."';\">Start</button>
                                     <button type=\"button\" class=\"list-area__button list-area__button--view\" onclick=\"location.href='/project/public/workouts/edit/" . $workout['workoutID'] ."';\">View</button>
                                 </form>
                             </li>

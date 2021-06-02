@@ -9,7 +9,8 @@ class Home extends Controller {
         
         $curlHandle = curl_init("http://92.115.143.213:3000/project/api/users/" . $_SESSION["SESSION_USER"]);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-        $response = json_decode(curl_exec($curlHandle), true);
+        $curlResponse = json_decode(curl_exec($curlHandle), true);
+        $response = $curlResponse["description"];
 
         $userHomepage = $this->model("UserHomePage");
         foreach ($userHomepage as $key => $value) {
@@ -20,14 +21,15 @@ class Home extends Controller {
 
         $uri = "http://92.115.143.213:3000/project/api/users/" . $_SESSION["SESSION_USER"] . "/workouts/history?limit=1";
         curl_setopt($curlHandle, CURLOPT_URL, $uri);
-        $response = json_decode(curl_exec($curlHandle), false);
+        $curlResponse = json_decode(curl_exec($curlHandle), true);
+        $response = $curlResponse["description"];
+        
         if (count($response)) {
             $userHomepage->setInfo("lastWorkout", $response[0]);
         }
         else {
             $userHomepage->setInfo("lastWorkout", null);
         }
-
         $this->view('home/home', $userHomepage);
     }
 

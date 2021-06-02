@@ -9,7 +9,7 @@ async function getRankings(rankingCriterion) {
         }
     })
     const responseBody = await response.json();
-    return responseBody;
+    return responseBody["description"];
 }
 
 async function updatePage() {
