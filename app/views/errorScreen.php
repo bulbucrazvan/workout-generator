@@ -18,7 +18,7 @@
                 <p> Error description: </p>
                 <p> <?php echo $data ?> </p>  
             </div> 
-            <button> Home </button>
+            <button type="button" onclick="window.location.href='/project/public';"> Home </button>
         </div>
     </section>
 </main>

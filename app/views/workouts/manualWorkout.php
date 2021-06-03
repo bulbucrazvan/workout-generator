@@ -48,6 +48,7 @@
 
 <script>
     var userID = "<?php echo $_SESSION['SESSION_USER']; ?>";
+    var loginKey = "<?php echo $_SESSION['SESSION_USER'];?>";
 </script>
 
 <script src="/project/public/javascript/listbackgroundselector.js"></script>

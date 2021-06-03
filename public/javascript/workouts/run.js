@@ -12,6 +12,10 @@ async function getExercise(exerciseID) {
         }
     });
     const responseBody = await response.json();
+    if (responseBody["statusCode"]) {
+        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        window.location.href = "/project/public/errorMessage";
+    }
     return responseBody["description"];
 }
 
@@ -20,10 +24,15 @@ async function completeWorkout() {
     const response = await fetch(uri, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': loginKey
         }
     });
     const responseBody = await response.json();
+    if (responseBody["statusCode"]) {
+        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        window.location.href = "/project/public/errorMessage";
+    }
     return responseBody["description"];
 }
 

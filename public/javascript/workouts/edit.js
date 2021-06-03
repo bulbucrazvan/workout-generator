@@ -4,10 +4,15 @@ async function getWorkout(userID, workoutID) {
     var response = await fetch(uri, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Authorization': loginKey
         }
     });
     var responseBody = await response.json();
+    if (responseBody["statusCode"]) {
+        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        window.location.href = "/project/public/errorMessage";
+    }
     return responseBody["description"];
 }
 
@@ -16,11 +21,16 @@ async function putWorkout(workout, workoutID) {
     const response = await fetch(uri, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': loginKey
         },
         body: JSON.stringify(workout)
     });
     const responseBody = await response;
+    if (responseBody["statusCode"]) {
+        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        window.location.href = "/project/public/errorMessage";
+    }
     return responseBody["description"];
 }
 
@@ -29,10 +39,15 @@ async function deleteWorkout(workoutID) {
     const response = await fetch(uri, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': loginKey
         },
     });
     const responseBody = await response;
+    if (responseBody["statusCode"]) {
+        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        window.location.href = "/project/public/errorMessage";
+    }
     return responseBody["description"];
 }
 

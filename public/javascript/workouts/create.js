@@ -58,11 +58,16 @@ async function postWorkout(workout) {
     const response = await fetch(uri, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': loginKey
         },
         body: JSON.stringify(workout)
     });
     const responseBody = await response;
+    if (responseBody["statusCode"]) {
+        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        window.location.href = "/project/public/errorMessage";
+    }
     return responseBody["description"];
 }
 
@@ -75,6 +80,10 @@ async function getExercises() {
         }
     });
     const responseBody = await response.json();
+    if (responseBody["statusCode"]) {
+        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        window.location.href = "/project/public/errorMessage";
+    }
     return responseBody["description"];
 }
 

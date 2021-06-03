@@ -3,7 +3,8 @@ async function sendParameters(parameters) {
     const response = await fetch(uri, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': loginKey
         },
         body: JSON.stringify(parameters)
     })
@@ -65,11 +66,11 @@ async function generateWorkout() {
     }
     else {
         response = await sendParameters(parameters);
-        if ('statusCode' in response) {
+        if (response['statusCode']) {
             window.alert(response['description']);
         }
         else {
-            window.location.href = '/project/public/workouts/generatedWorkout/' + JSON.stringify(response);
+            window.location.href = '/project/public/workouts/generatedWorkout/' + JSON.stringify(response['description']);
         }
     }
     

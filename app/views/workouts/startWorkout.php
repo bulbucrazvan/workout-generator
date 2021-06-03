@@ -57,6 +57,7 @@
 
 <script>
     var userID = "<?php echo $_SESSION['SESSION_USER']; ?>";
+    var loginKey = "<?php echo $_SESSION['LOGIN_KEY'];?>";
     var workout = JSON.parse(`<?php echo json_encode($data);?>`);
 </script>
 

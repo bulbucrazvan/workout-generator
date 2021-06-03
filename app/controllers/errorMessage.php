@@ -2,9 +2,8 @@
 
     class ErrorMessage extends Controller {
         
-        public function index($errorMessage = '') {
-            $errorMessage = "Hello there.";
-            $this->view('errorScreen', $errorMessage);
+        public function index() {
+            $this->view('errorScreen', $_COOKIE["errorMessage"]);
         }
     }
 

@@ -11,6 +11,10 @@ class App {
     public function __construct(){
         SessionUtils::startSession();
 
+        if (SessionUtils::isLoggedIn()) {
+            $this->controller = 'home';
+        }
+
         $url = $this->parseURL();
 
         if (isset($url[0])){

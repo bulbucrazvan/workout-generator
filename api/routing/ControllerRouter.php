@@ -76,7 +76,7 @@
             }
 
             require_once("../controllers/" . $controllerType . ".php");
-            return new $controllerType($controllerHandler, $this->requestParams, $this->queryParams, $requestBodyModelObject);
+            return new $controllerType($controllerHandler, $this->requestParams, $this->queryParams, $requestBodyModelObject, $this->headers);
         }
 
 

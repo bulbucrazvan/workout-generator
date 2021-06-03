@@ -49,6 +49,7 @@
 
 <script>
     var userID = "<?php echo $_SESSION['SESSION_USER']; ?>";
+    var loginKey = "<?php echo $_SESSION['LOGIN_KEY'];?>";
     var workoutID = "<?php echo $data;?>";
 </script>
 

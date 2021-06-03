@@ -2,6 +2,10 @@
 
     class Admin extends Controller {
 
+        public function __construct() {
+            SessionUtils::checkAuthorized();
+        }
+
         public function index() {
             $requestURI = "http://92.115.143.213:3000/project/api/exercises/";
 

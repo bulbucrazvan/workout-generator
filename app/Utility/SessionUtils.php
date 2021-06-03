@@ -8,6 +8,13 @@
             }
         }
 
+        public static function checkAuthorized() {
+            if (!SessionUtils::isLoggedIn()) {
+                setcookie("error", "You need to be logged in to access this page.", time() + 10);
+                Redirect::errorPage();
+            }
+        }
+
         public static function isLoggedIn() {
             return isset($_SESSION["SESSION_USER"]);
         }

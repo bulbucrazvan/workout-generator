@@ -78,23 +78,13 @@
 
         //GET: /users/{userID} -- gets the details of user
         public function getUser($params, $queryParams, $requestBody) {
-            if (!is_numeric($params["userID"])) {
-                http_response_code(400);
-                echo json_encode(new Response(1, "Bad userID"));
-                die();
-            }
+            $this->checkAuthorized($params["userID"], false);
 
             $queryStatement = $this->databaseConnection->prepare("SELECT username, email, gender, dateOfBirth, height, weight, currentStreak, longestStreak, workoutsCompleted, canCreate FROM users WHERE id = ?");
             $queryStatement->bind_param('i', $params["userID"]);
             $queryStatement->execute();
             $result = $queryStatement->get_result();
-            
-            if (!$result->num_rows) {
-                http_response_code(404);
-                echo json_encode(new Response(2, "User not found."));
-                die();
-            }
-            
+             
             require_once("../models/User.php");
             $row = $result->fetch_assoc();
             $user = new User();
@@ -114,6 +104,7 @@
 
         //PUT: /users/{userID} -- updates user
         public function updateUser($params, $queryParams, $requestBody) {
+            $this->checkAuthorized($params["userID"], false);
             if (!$requestBody->type) {
                 if (!strtotime($requestBody->dateOfBirth)) {
                     http_response_code(400);
@@ -162,11 +153,7 @@
 
         //GET: /users/{userID}/workouts -- gets user workouts(name and id)
         public function getWorkouts($params, $queryParams, $requestBody) {
-            if (!is_numeric($params["userID"])) {
-                http_response_code(400);
-                echo json_encode(new Response(1, "Bad userID"));
-                die();
-            }
+            $this->checkAuthorized($params["userID"], false);
 
             $queryStatement = $this->databaseConnection->prepare("SELECT workoutID, name FROM workouts WHERE userID = ? AND wasDeleted = 0");
             $queryStatement->bind_param('i', $params["userID"]);
@@ -184,14 +171,11 @@
 
         //POST: /users/{userID}/workouts -- post new workout
         public function addWorkout($params, $queryParams, $requestBody) {
-            if (!is_numeric($params["userID"])) {
-                http_response_code(400);
-                echo json_encode(new Response(1, "Bad userID"));
-                die();
-            }
+            $this->checkAuthorized($params["userID"], false);
+
             if (!count($requestBody->exercises)) {
                 http_response_code(400);
-                echo json_encode(new Response(2, "Workout needs to have at least 1 exercise."));
+                echo json_encode(new Response(1, "Workout needs to have at least 1 exercise."));
             }
 
             $exercises = $requestBody->exercises;
@@ -211,6 +195,8 @@
 
         //GET: /users/{userID}/workouts/{workoutID} -- get workout
         public function getWorkout($params, $queryParams, $requestBody) {
+            $this->checkAuthorized($params["userID"], false);
+
             if (!is_numeric($params["workoutID"])) {
                 http_response_code(400);
                 echo json_encode(new Response(2, "Bad workoutID"));
@@ -244,6 +230,8 @@
 
         //PUT: /users/{userID}/workouts/{workoutID} -- updates workout
         public function updateWorkout($params, $queryParams, $requestBody) {
+            $this->checkAuthorized($params["userID"], false);
+
             if (!is_numeric($params["workoutID"])) {
                 http_response_code(400);
                 echo json_encode(new Response(1, "Bad workoutID"));
@@ -284,14 +272,11 @@
 
         //DELETE: /users/{userID}/workouts/{workoutID}
         public function deleteWorkout($params, $queryParams, $requestBody) {
-            if (!is_numeric($params["userID"])) {
-                http_response_code(400);
-                echo json_encode(new Response(1, "Bad userID"));
-                die();
-            }
+            $this->checkAuthorized($params["userID"], false);
+
             if (!is_numeric($params["workoutID"])) {
                 http_response_code(400);
-                echo json_encode(new Response(2, "Bad workoutID"));
+                echo json_encode(new Response(1, "Bad workoutID"));
                 die();
             }
             $userID = $params["userID"];
@@ -307,21 +292,17 @@
             }
             else {
                 http_response_code(404);
-                echo json_encode(new Response(3, "Workout doesn't exist or doesn't belong to userID"));
+                echo json_encode(new Response(2, "Workout doesn't exist or doesn't belong to userID"));
             }
         }
 
         //GET: /users/{userID}/workouts/history?order=[asc/desc]$limit=[]
         public function getWorkoutHistory($params, $queryParams, $requestBody) {
-            if (!is_numeric($params["userID"])) {
-                http_response_code(400);
-                echo json_encode(new Response(1, "Bad userID"));
-                die();
-            }
+            $this->checkAuthorized($params["userID"], false);
 
             if (!is_numeric($queryParams["limit"]) || $queryParams["limit"] < 0) {
                 http_response_code(400);
-                echo json_encode(new Response(2, "Bad limit"));
+                echo json_encode(new Response(1, "Bad limit"));
                 die();
             }
 
@@ -349,7 +330,7 @@
             }
             else {
                 http_response_code(400);
-                echo json_encode(new Response(3, "Bad order"));
+                echo json_encode(new Response(2, "Bad order"));
             }
             
         }
@@ -398,6 +379,8 @@
 
         //POST: /users/{userID}/workouts/{workoutID}/completed
         public function completeWorkout($params, $queryParams, $requestBody) {
+            $this->checkAuthorized($params["userID"], false);
+
             if (!$this->checkWorkoutBelongsToUser($params["userID"], $params["workoutID"])) {
                 http_response_code(403);
                 echo json_encode(new Response(1, "Workout doesn't belong to user"));
@@ -408,13 +391,15 @@
             $queryStatement->bind_param('iis', $params["userID"], $params["workoutID"], $mySQLDate);
             $queryStatement->execute();
             $this->updateWorkoutCount($params["userID"]);
-            http_response_code(200);
+            http_response_code(201);
             echo json_encode(new Response(0, "Successfully inserted"));  
         }
 
 
         //POST: /users/{userID}/workouts/generate
         public function generateWorkout($params, $queryParams, $requestBody) {
+            $this->checkAuthorized($params["userID"], false);
+
             $range = $this->getDurationRange($requestBody->durationRange);
             $maxRange = $range['max'];
             $currentDuration = 0;
@@ -445,6 +430,7 @@
                     die();
                 }
             }
+            http_response_code(200);
             echo json_encode(new Response(0, $chosenExercises));
         }
 

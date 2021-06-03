@@ -8,10 +8,15 @@ async function getUser() {
     const response = await fetch(uri, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json' 
+            'Accept': 'application/json',
+            'Authorization': loginKey 
         }
     });
     const responseBody = await response.json();
+    if (responseBody["statusCode"]) {
+        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        window.location.href = "/project/public/errorMessage";
+    }
     return responseBody["description"];
 }
 
@@ -20,11 +25,16 @@ async function putUser(user) {
     const response = await fetch(uri, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': loginKey 
         },
         body: JSON.stringify(user)
     });
     const responseBody = await response.json();
+    if (responseBody["statusCode"]) {
+        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        window.location.href = "/project/public/errorMessage";
+    }
     return responseBody["description"];
 }
 

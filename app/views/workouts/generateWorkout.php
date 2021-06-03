@@ -65,6 +65,7 @@
 
 <script>
     var userID = "<?php echo $_SESSION['SESSION_USER'];?>";
+    var loginID = "<?php echo $_SESSION['LOGIN_KEY'];?>"
 </script>
 
 <script src="/project/public/javascript/workouts/generate.js"></script>
