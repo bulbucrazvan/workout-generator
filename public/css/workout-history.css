@@ -1,0 +1,32 @@
+.list-area__paragraph {
+    width: 33%;
+    font-size: 1em;
+}
+
+.list-area__form {
+    width: 33%;
+    border-left: 2px solid black;
+}
+
+.list-area__button {
+    font-size: 1em;
+}
+
+@media screen and (max-width: 850px) {
+    .list-area__paragraph {
+        font-size: 0.6em;
+    }
+    .list-area__button {
+        font-size: 0.6em;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .list-area__paragraph {
+        font-size: 0.4em;
+    }
+
+    .list-area__button {
+        font-size: 0.4em;
+    }
+}

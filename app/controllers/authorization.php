@@ -35,9 +35,10 @@
             curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
             $response = json_decode(curl_exec($curlHandle), true);
             curl_close($curlHandle);
+            $loginInfo = $response["description"];
 
-            SessionUtils::login($response["description"], $loginkey);
-            Redirect::to(APP_PATH . '/home');
+            SessionUtils::login($loginInfo, $loginkey);
+            Redirect::to(APP_PATH);
         }
 
     }

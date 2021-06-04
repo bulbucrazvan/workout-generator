@@ -10,8 +10,14 @@
 
         public static function checkAuthorized() {
             if (!SessionUtils::isLoggedIn()) {
-                setcookie("error", "You need to be logged in to access this page.", time() + 10);
-                Redirect::errorPage();
+                Redirect::errorPage("You need to be logged in to access this page.");
+            }
+        }
+
+        public static function checkAdminAuthorized() {
+            SessionUtils::checkAuthorized();
+            if (!SessionUtils::isAdmin()) {
+                Redirect::errorPage("You need to be an administrator to access this page.");
             }
         }
 
@@ -19,8 +25,13 @@
             return isset($_SESSION["SESSION_USER"]);
         }
 
-        public static function login($userID, $loginKey) {
-            $_SESSION["SESSION_USER"] = $userID;
+        public static function isAdmin() {
+            return $_SESSION["USER_ROLE"];
+        }
+
+        public static function login($loginInfo, $loginKey) {
+            $_SESSION["SESSION_USER"] = $loginInfo["userID"];
+            $_SESSION["USER_ROLE"] = $loginInfo["userRole"];
             $_SESSION["LOGIN_KEY"] = $loginKey;
         }
 

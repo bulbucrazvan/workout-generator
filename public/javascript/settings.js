@@ -14,7 +14,7 @@ async function getUser() {
     });
     const responseBody = await response.json();
     if (responseBody["statusCode"]) {
-        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        document.cookie = "errorMessage=" + encodeURIComponent(responseBody["description"]) + "; path=/";
         window.location.href = "/project/public/errorMessage";
     }
     return responseBody["description"];
@@ -32,7 +32,7 @@ async function putUser(user) {
     });
     const responseBody = await response.json();
     if (responseBody["statusCode"]) {
-        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        document.cookie = "errorMessage=" + encodeURIComponent(responseBody["description"]) + "; path=/";
         window.location.href = "/project/public/errorMessage";
     }
     return responseBody["description"];

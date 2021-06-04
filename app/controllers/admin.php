@@ -3,7 +3,7 @@
     class Admin extends Controller {
 
         public function __construct() {
-            SessionUtils::checkAuthorized();
+            SessionUtils::checkAdminAuthorized();
         }
 
         public function index() {

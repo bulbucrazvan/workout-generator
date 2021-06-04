@@ -7,6 +7,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="/project/public/css/font.css">
     <link rel="stylesheet" href="/project/public/css/main-framework.css">
+    <link rel="stylesheet" href="/project/public/css/workout-history.css">
     <link rel="stylesheet" href="/project/public/css/footer.css">
     <link rel="stylesheet" href="/project/public/css/navbar.css">
 </head>
@@ -21,55 +22,13 @@
                 <form>
                 <label> Sort by </label>
                 <select id="comboBox" class="combo-box">
-                    <option> Most recent </option>
-                    <option> Least recent </option>
+                    <option value="asc"> Most recent </option>
+                    <option value="desc"> Least recent </option>
                 </select> 
                 </form>
             </div>
             <div class="main-bubble__area main-bubble__area--list-area">
-                <ul class="list-area__list">
-                <li> 
-                    <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
-                    <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="button">Start</button>
-                        <button class="list-area__button list-area__button--view" type="button">View</button>
-                    </form>
-                </li>
-                <li> 
-                    <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
-                    <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="button">Start</button>
-                        <button class="list-area__button list-area__button--view" type="button">View</button>
-                    </form>
-                </li>
-                <li> 
-                    <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
-                    <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="button">Start</button>
-                        <button class="list-area__button list-area__button--view" type="button">View</button>
-                    </form>
-                </li>
-                <li> 
-                    <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
-                    <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="button">Start</button>
-                        <button class="list-area__button list-area__button--view" type="button">View</button>
-                    </form>
-                </li>
-                <li> 
-                    <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
-                    <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="button">Start</button>
-                        <button class="list-area__button list-area__button--view" type="button">View</button>
-                    </form>
-                </li>
-                <li> 
-                    <p class="list-area__paragraph list-area__paragraph--left">Workout 1</p> 
-                    <form class="list-area__form">
-                        <button class="list-area__button list-area__button--start" type="button">Start</button>
-                        <button class="list-area__button list-area__button--view" type="button">View</button>
-                    </form>
-                </li>
+                <ul id="workoutList" class="list-area__list">
                 </ul>
             </div>
         </section>
@@ -80,23 +39,15 @@
 </body>
 </html>
 
+<script>
+    var userID = "<?php echo $_SESSION['SESSION_USER']; ?>";
+    var loginKey = "<?php echo $_SESSION['LOGIN_KEY'];?>";
+</script>
+
 <script src="/project/public/javascript/listbackgroundselector.js">
 </script>
 
 <script src="/project/public/javascript/comboboxclick.js">
 </script>
 
-<script>
-    let viewBtns = document.getElementsByClassName("list-area__button--view");
-    let startBtns = document.getElementsByClassName("list-area__button--start");
-
-    for (var i = 0; i < viewBtns.length; i++){
-        viewBtns[i].addEventListener('click', function() {
-            window.location.href = "/project/public/home/workoutViewer";
-        });
-
-        startBtns[i].addEventListener('click', function() {
-            window.location.href = "/project/public/home/startWorkout";
-        })
-    }
-</script>
+<script src="/project/public/javascript/history.js"></script>

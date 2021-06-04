@@ -308,7 +308,7 @@
 
             $order = $queryParams["order"];
             $limit = $queryParams["limit"];
-            $getWorkoutHistoryStatement = "SELECT w.workoutID, w.name FROM workouts w 
+            $getWorkoutHistoryStatement = "SELECT w.workoutID, w.name, h.dateCompleted FROM workouts w 
                                            JOIN workout_history h ON w.workoutID=h.workoutID AND w.userID = h.userID
                                            WHERE h.userID = ?  
                                            ORDER BY h.dateCompleted $order";
@@ -320,9 +320,10 @@
                 $queryStatement->execute();
                 $result = $queryStatement->get_result();
                 $receivedWorkouts = array();
-                require_once("../models/DTO/WorkoutDTO.php");
+                require_once("../models/DTO/WorkoutHistoryDTO.php");
                 while ($row = $result->fetch_assoc()) {
-                    $workout = new WorkoutDTO($row["name"], $row["workoutID"]);
+                    $dateCompleted = new DateTime($row["dateCompleted"]);
+                    $workout = new WorkoutDTO($row["name"], $row["workoutID"], $dateCompleted->format('Y-m-d'));
                     array_push($receivedWorkouts, $workout);
                 }
                 http_response_code(200);
@@ -368,8 +369,12 @@
             $result = $queryStatement->get_result();
             if ($result->num_rows) {
                 $row = $result->fetch_assoc();
+                $userID = $row["userID"];
+                $result = $this->databaseConnection->query("SELECT role FROM users WHERE id = $userID");
+                $row = $result->fetch_assoc();
                 http_response_code(200);
-                echo json_encode(new Response(0, $row["userID"]));
+                $response = ["userID" => $userID, "userRole" => (int)$row["role"]];
+                echo json_encode(new Response(0, $response));
                 die();
             }
 

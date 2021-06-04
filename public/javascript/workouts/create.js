@@ -1,6 +1,5 @@
 
 function redirectToExerciseView(exerciseID) {
-    console.log(exerciseID);
     window.location.href = "http://92.115.143.213:3000/project/public/exercises/" + exerciseID;
 }
 
@@ -65,7 +64,7 @@ async function postWorkout(workout) {
     });
     const responseBody = await response;
     if (responseBody["statusCode"]) {
-        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        document.cookie = "errorMessage=" + encodeURIComponent(responseBody["description"]) + "; path=/";
         window.location.href = "/project/public/errorMessage";
     }
     return responseBody["description"];
@@ -81,7 +80,7 @@ async function getExercises() {
     });
     const responseBody = await response.json();
     if (responseBody["statusCode"]) {
-        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        document.cookie = "errorMessage=" + encodeURIComponent(responseBody["description"]) + "; path=/";
         window.location.href = "/project/public/errorMessage";
     }
     return responseBody["description"];
@@ -112,8 +111,10 @@ function initializeExerciseHandlers() {
 }
 
 
-initializeExercises();
+if (window.location.pathname == '/project/public/workouts/create') {
+    initializeExercises();
 
+}
 document.getElementById("allExercisesList").addEventListener('click', function(event) {
     event.preventDefault();
     if (event.target.id == "viewExercise") {

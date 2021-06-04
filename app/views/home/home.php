@@ -24,7 +24,7 @@
                             <p> Last workout: </p>
                             <p> " . $data->lastWorkout["workoutName"] . "</p>
                         </div>
-                        <button id=\"startWrkoutBtn\" type=\"button\" class=\"inner-bubble__button inner-bubble__button--last-workout\"> Start </button>
+                        <button onclick=\"window.location.href='/project/public/workouts/run/" . $data->lastWorkout["workoutID"] . "';\" type=\"button\" class=\"inner-bubble__button inner-bubble__button--last-workout\"> Start </button>
                     </div>";
                 }
                 else {
@@ -45,7 +45,7 @@
             </div>
             <div class="main-bubble__inner-bubble main-bubble__inner-bubble--has-button">
                 <p> Workout history </p>
-                <button id="wrkOutHistory" type="button" class="inner-bubble__button"> View </button>
+                <button type="button" class="inner-bubble__button" onclick="window.location.href='/project/public/home/workoutHistory'"> View </button>
             </div>
             <div class="main-bubble__inner-bubble">
                 <p> Workouts completed </p>
@@ -62,17 +62,3 @@
     ?>
 </body>
 </html>
-
-<script>
-let startWorkout = document.getElementById("startWrkoutBtn");
-let workoutHistory = document.getElementById("wrkOutHistory");
-if (startWorkout) {
-    startWorkout.addEventListener('click', function() {
-    window.location.href = "/project/public/home/startWorkout";
-});
-}
-
-workoutHistory.addEventListener('click', function() {
-    window.location.href = "/project/public/home/workoutHistory";
-});
-</script>

@@ -13,7 +13,7 @@ async function getExercise(exerciseID) {
     });
     const responseBody = await response.json();
     if (responseBody["statusCode"]) {
-        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        document.cookie = "errorMessage=" + encodeURIComponent(responseBody["description"]) + "; path=/";
         window.location.href = "/project/public/errorMessage";
     }
     return responseBody["description"];
@@ -30,7 +30,7 @@ async function completeWorkout() {
     });
     const responseBody = await response.json();
     if (responseBody["statusCode"]) {
-        document.cookie = "errorMessage=" + responseBody["description"] + "";
+        document.cookie = "errorMessage=" + encodeURIComponent(responseBody["description"]) + "; path=/";
         window.location.href = "/project/public/errorMessage";
     }
     return responseBody["description"];

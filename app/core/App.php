@@ -12,7 +12,12 @@ class App {
         SessionUtils::startSession();
 
         if (SessionUtils::isLoggedIn()) {
-            $this->controller = 'home';
+            if (SessionUtils::isAdmin()) {
+                $this->controller = 'admin';
+            }
+            else {
+                $this->controller = 'home';
+            }
         }
 
         $url = $this->parseURL();
