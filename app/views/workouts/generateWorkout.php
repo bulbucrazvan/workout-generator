@@ -63,9 +63,10 @@
 </body>
 </html>
 
+<script src="/project/public/javascript/cookieSetter.js"></script>
 <script>
     var userID = "<?php echo $_SESSION['SESSION_USER'];?>";
-    var loginID = "<?php echo $_SESSION['LOGIN_KEY'];?>"
+    var loginKey = "<?php echo $_SESSION['LOGIN_KEY'];?>"
 </script>
 
 <script src="/project/public/javascript/workouts/generate.js"></script>

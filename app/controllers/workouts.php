@@ -48,7 +48,7 @@
 
         public function generatedWorkout($workout = '') {
 
-            $this->view('workouts/generatedWorkout', $workout);
+            $this->view('workouts/generatedWorkout', $_COOKIE["generatedWorkout"]);
         }
 
         public function edit($workout = '') {

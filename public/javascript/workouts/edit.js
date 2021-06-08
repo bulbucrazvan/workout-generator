@@ -10,7 +10,7 @@ async function getWorkout(userID, workoutID) {
     });
     var responseBody = await response.json();
     if (responseBody["statusCode"]) {
-        document.cookie = "errorMessage=" + encodeURIComponent(responseBody["description"]) + "; path=/";
+        setCookie("errorMessage", encodeURIComponent(responseBody["description"]));
         window.location.href = "/project/public/errorMessage", true;
     }
     return responseBody["description"];
@@ -28,7 +28,7 @@ async function putWorkout(workout, workoutID) {
     });
     const responseBody = await response;
     if (responseBody["statusCode"]) {
-        document.cookie = "errorMessage=" + encodeURIComponent(responseBody["description"]) + "; path=/";
+        setCookie("errorMessage", encodeURIComponent(responseBody["description"]));
         window.location.href = "/project/public/errorMessage";
     }
     return responseBody["description"];
@@ -45,7 +45,7 @@ async function deleteWorkout(workoutID) {
     });
     const responseBody = await response;
     if (responseBody["statusCode"]) {
-        document.cookie = "errorMessage=" + encodeURIComponent(responseBody["description"]) + "; path=/";
+        setCookie("errorMessage", encodeURIComponent(responseBody["description"]));
         window.location.href = "/project/public/errorMessage";
     }
     return responseBody["description"];

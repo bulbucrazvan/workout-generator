@@ -38,7 +38,7 @@
     ?>
 </body>
 </html>
-
+<script src="/project/public/javascript/cookieSetter.js"></script>
 <script src="/project/public/javascript/listbackgroundselector.js">
 </script>
 

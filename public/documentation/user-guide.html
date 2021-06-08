@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="documentation.css">
+    <title>Documentație arhitecturală</title>
+</head>
+<body prefix="schema: http://schema.org">
+    <article resource="#" typeof="schema:ScholarlyArticle">
+        <h1 property="schema:name"> Workout Generator - Ghidul Utilizatorului </h1>
+        <div role="contentinfo">
+            <section typeof="sa:AuthorsList">
+                <h2> Autori </h2>
+                <ul>
+                    <li typeof="sa:ContributorRole" property="schema:author">
+                        <span typeof="schema:Person">
+                            <meta property="schema:givenName" content="Razvan">
+                            <meta property="schema:familyName" content="Bulbuc">
+                            <span property="schema:name"> Bulbuc Razvan </span>
+                        </span>
+                    </li>
+                </ul>
+            </section>
+            <section typeof="sa:Affiliations">
+                <h2> Afilieri </h2>
+                <ul>
+                    <li id="sa">
+                        <span typeof="schema:Organization" resource="https://www.info.uaic.ro/">
+                            <span property="schema:name">Faculty of Computer Science</span>
+                            <span property="schema:parentOrganization">
+                                <span typeof="schema:Organization">
+                                    <span property="schema:name" class="block-span"> University "Alexandru Ioan Cuza" </span>
+                                    <span property="schema:location" typeof="schema:Place" class="block-span">
+                                        <span property="schema:address" typeof="schema:PostalAddress">
+                                            <span property="schema:addressRegion">Iasi</span>
+                                            -
+                                            <span property="schema:addressCountry">Romania</span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <section id="welcome">
+            <h2> Pagina de pornire </h2>
+            <p>
+                Aceasta este prima pagină unde vă veți găsi odată ce accesați aplicația Web. Aici veți vedea câteva imagini ce descriu funcționalitățile
+                aplicației, veți avea acces la documentația aplicației și la acest ghid, și la un link către pagina de logare/înregistrare. 
+            </p>
+        </section>
+        <section id="authentication">
+            <h2> Conectarea </h2>
+            <p>
+                Odată ce ajungeți la pagina de logare, aveți 2 posibilități: să vă logați într-un cont existent, sau să creați un cont nou.
+                Pentru crearea unui cont nou aveți nevoie de un e-mail, un username și o parolă, dintre care e-mailul și username-ul trebuie să fie unice.
+                După introducerea unor credențiale corecte, veți fi redirecționați către pagina Acasă, personală fiecărui utilizator.
+            </p>
+        </section>
+        <section id="homepage">
+            <h2> Acasă </h2>
+            <p>
+                Odată logați, veți ajunge la această pagină. Aici veți putea vedea statisticile voastre: perioada curentă de activitate, cea mai lungă
+                perioadă de activitate, și numărul de antrenamente efectuate. De asemenea, puteți vedea ultimul antrenament efectuat, și butonul de
+                a-l începe din nou, dar și un buton către istoricul antrenamentelor voastre.
+            </p>
+
+            <h3> Istoricul antrenamentelor </h3>
+            <p> 
+                Aici puteți viziona toate antrenamentele efectuate, sortate în ordine de data efectuării, la dorință. Astfel, puteți vedea numele antrenamentului,
+                data completării, și 2 butoane: cel de Start, pentru a începe acel antrenament, și de View, pentru a putea viziona în detaliu antrenamentul, dar și să îl
+                modificați, la dorință.
+            </p>
+
+            <h3> Bara de navigare </h3>
+            <p>
+                Această bară este disponibilă odată ce sunteți logați, și oferă acces la următoarele: antrenamentele voastre, clasamentul global al
+                utilizatorilor, setările de profil, și butonul de logout. 
+            </p>
+
+            <h3> Vizionarea antrenamentelor </h3>
+            <p>
+                Odată ce apăsați butonul My Workouts de pe bara de navigare, veți ajunge la pagina cu toate antrenamentele voastre. Puteți vedea numele
+                fiecărui antrenament, și butoanele de Start și View, care vă va oferi toate detaliile unui antrenament.
+            </p>
+
+            <h3> Vizionarea/editarea unui antrenament </h3>
+            <p> Apăsați butonul View in orice pagină unde sunt afișate antrenamentele. Veți ajunge la pagina detaliată unui antrenament. Aici puteți
+                vedea toate exercițiile din antrenament, să adăugați noi exerciții prin apăsarea butonului 'Add exercise', să redenumiți antrenamentul,
+                sau să îl ștergeți.
+            </p>
+
+            <h3> Crearea unui antrenament </h3>
+            <p>
+                Navigați la pagina My Workouts din bara de navigare. Sub lista de antrenamente veți vedea 2 butoane - Manual și Generate workout. Apăsând butonul
+                Manual, veți ajunge la o pagină similară celei de vizionare a unui antrenament, dar cu lista de exerciții goale. De aici puteți adăuga exercițiile care doriți, și să oferiți un nume
+                antrenamentului. Dacă lăsați gol câmpul de nume, acesta va fi 'WorkoutX', unde X este următorul indice de workout fără nume. Apăsați butonul Generate workout pentru a ajunge
+                la pagina de generare a unui antrenament. Alegeți o locație, cel puțin un grup de mușchi, și o durată, și apăsați butonul Generate. Dacă este posibilă generarea
+                unui astfel de antrenament, veți ajunge din nou la pagina de editare al antrenamentului generat, unde îl veți putea modifica la dorință.
+            </p>
+
+            <h3> Efectuarea unui antrenament </h3>
+            <p>
+                Odată ce apăsați butonul Start în dreptul unui antrenament, veți ajunge la pagina de efectuare al antrenamentului. Aici, rând pe rând,
+                vor apărea exercițiile din antrenament, cu videoul explicativ și instrucțiunile text. Pentru fiecare exercițiu aveți un timer, setat inițial cu timpul asociat fiecărui exercițiu.
+                Odată ce apăsați butonul Start, v-a începe timer-ul, pe care îl puteți pauza cu butonul Pause, sau reseta cu butonul Stop. Sub butoanele de control ale
+                timer-ului, sunt butoanele de control ale exercițiului. De aici puteți să treceți la exercițiul precedent sau următor. Odată ce ajungeți la ultimul exercițiu din
+                antrenament, va apărea butonul Finish, la apăsarea căruia antrenamentul va fi considerat completat, și veți fi redirecționați la pagina Acasă.
+            </p>
+
+            <h3> Clasamentul global </h3>
+            <p>
+                Apăsați butonul Global rankings pentru a ajunge la pagina de clasamente. Aici veți putea vedea cei mai activi utilizatori după un criteriu selectat.
+            </p>
+
+            <h3> Setările utilizatorului </h3>
+            <p>
+                Puteți accesa setările voastre apăsând butonul de profil, după care butonul Settings. Aici puteți modifica datele voastre personale - înălțimea, greutatea etc.
+                Din tabul Account Settings, puteți schimba datele contului precum email-ul și parola.
+            </p>
+        </section>
+    </article>
+</body>
+</html>

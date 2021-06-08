@@ -24,9 +24,8 @@ const sendRequest = async () => {
         }
     })
     const responseBody = await response.json();
-    console.log(responseBody);
     if (!responseBody["statusCode"]) {
-        window.location.href = "/project/public/home/exerciseViewer";
+        window.location.href = "/project/public/authorization/beginSession/" + responseBody["description"];
     }
     else {
         showErrors(responseBody["statusCode"]);

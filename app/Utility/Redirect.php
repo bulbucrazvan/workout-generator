@@ -9,6 +9,7 @@
         public static function errorPage($errorMessage) {
             setcookie("errorMessage", $errorMessage, time() + 10);
             header("Location: /project/public/errorMessage");
+            die();
         }
 
     }

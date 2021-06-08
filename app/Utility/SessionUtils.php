@@ -22,7 +22,7 @@
         }
 
         public static function isLoggedIn() {
-            return isset($_SESSION["SESSION_USER"]);
+            return (isset($_SESSION["SESSION_USER"]) );
         }
 
         public static function isAdmin() {

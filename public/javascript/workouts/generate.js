@@ -1,5 +1,5 @@
 async function sendParameters(parameters) {
-    var uri = 'http://92.115.143.213:3000/project/api/users/"' + userID + '"/workouts/generate';
+    var uri = 'http://92.115.143.213:3000/project/api/users/' + userID + '/workouts/generate';
     const response = await fetch(uri, {
         method: 'POST',
         headers: {
@@ -70,6 +70,7 @@ async function generateWorkout() {
             window.alert(response['description']);
         }
         else {
+            setCookie("generatedWorkout", JSON.stringify(response['description']));
             window.location.href = '/project/public/workouts/generatedWorkout/' + JSON.stringify(response['description']);
         }
     }

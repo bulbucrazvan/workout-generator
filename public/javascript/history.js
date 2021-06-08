@@ -10,7 +10,7 @@ async function getWorkouts(sortBy) {
     const responseBody = await response.json();
     console.log(responseBody);
     if (responseBody["statusCode"]) {
-        document.cookie = "errorMessage=" + encodeURIComponent(responseBody["description"]) + "; path=/";
+        setCookie("errorMessage", encodeURIComponent(responseBody["description"]));
         window.location.href = "/project/public/errorMessage";
     }
     return responseBody["description"];

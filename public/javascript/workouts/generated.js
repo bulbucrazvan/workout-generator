@@ -3,7 +3,7 @@ document.getElementById('generateAnotherBtn').addEventListener('click', function
 })
 
 function initializePage() {
-    exercises = JSON.parse(workout)
+    exercises = JSON.parse(workout);
     for (exercise of exercises) {
         addExerciseToWorkout(exercise["id"], exercise["name"]);
     }

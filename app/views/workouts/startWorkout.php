@@ -61,4 +61,5 @@
     var workout = JSON.parse(`<?php echo json_encode($data);?>`);
 </script>
 
+<script src="/project/public/javascript/cookieSetter.js"></script>
 <script src="/project/public/javascript/workouts/run.js"></script>

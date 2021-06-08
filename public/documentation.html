@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/documentation.css">
+    <title>Documentație arhitecturală</title>
+</head>
+<body prefix="schema: http://schema.org">
+    <article resource="#" typeof="schema:ScholarlyArticle">
+        <h1 property="schema:name"> Workout Generator </h1>
+        <div role="contentinfo">
+            <section typeof="sa:AuthorsList">
+                <h2> Autori </h2>
+                <ul>
+                    <li typeof="sa:ContributorRole" property="schema:author">
+                        <span typeof="schema:Person">
+                            <meta property="schema:givenName" content="Razvan">
+                            <meta property="schema:familyName" content="Bulbuc">
+                            <span property="schema:name"> Bulbuc Razvan </span>
+                        </span>
+                    </li>
+                </ul>
+            </section>
+            <section typeof="sa:Affiliations">
+                <h2> Afilieri </h2>
+                <ul>
+                    <li id="sa">
+                        <span typeof="schema:Organization" resource="https://www.info.uaic.ro/">
+                            <span property="schema:name">Faculty of Computer Science</span>
+                            <a href="https://www.info.uaic.ro/"> <img src="images/redirect.png"></a>
+                            <span property="schema:parentOrganization">
+                                <span typeof="schema:Organization">
+                                    <span property="schema:name" class="block-span"> University "Alexandru Ioan Cuza" </span>
+                                    <span property="schema:location" typeof="schema:Place" class="block-span">
+                                        <span property="schema:address" typeof="schema:PostalAddress">
+                                            <span property="schema:addressRegion">Iasi</span>
+                                            -
+                                            <span property="schema:addressCountry">Romania</span>
+                                        </span>
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <section typeof="sa:Abstract" id="abstract" role="doc-abstract">
+            <h2> Cerințe </h2>
+            <p>
+                Să se creeze o aplicație Web ce le oferă utilizatorilor diverse tipuri de antrenamente sportive personalizate. Utilizatorii
+                autentificați vor putea să specifice preferințe pentru antrenamentul dorit: grupe de mușchi, locație, durată. Aplicația va oferi
+                statistici relevante pentru fiecare utilizatori în parte, și un clasament global al celor mai activi utilizatori. 
+            </p>
+        </section>
+        <section id="introduction" role="doc-introduction">
+            <h2> Introducere </h2>
+            <section id="introduction--purpose">
+                <p>
+                    Pe lângă cerințele prevăzute în punctul anterior, aplicația oferă și alte funcționalități: crearea antrenamentelor sportive
+                    manual, vizionarea istoricului antrenamentelor unui utilizator, posibilitatea de a șterge sau edita antrenamentele deja existente,
+                    și posibilitatea de a parcurge un antrenament cu un timer din aplicație.
+                </p>
+        </section>
+        <section id="architecture">
+            <h2> Arhitectura aplicației </h2>
+            <p>
+                Aplicația folosește design pattern-ul MVC și un API REST, care va fi prezentat mai tîrziu.
+            <p>
+        </section>
+    </article>
+</body>
+</html>

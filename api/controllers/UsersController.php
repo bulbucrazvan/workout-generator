@@ -49,8 +49,11 @@
             $queryStatement->bind_param('sss', $requestBody->email, $requestBody->username, $requestBody->password);
             $queryStatement->execute();
 
-            http_response_code(201);
-            echo json_encode(new Response($userStatus, "Successfully created user."));
+            // http_response_code(201);
+            // echo json_encode(new Response($userStatus, "Successfully created user."));
+            $queryParams["username"] = $requestBody->username;
+            $queryParams["password"] = $requestBody->password;
+            $this->login('', $queryParams, '');
             
         }
 
@@ -184,9 +187,12 @@
             $addWorkoutStatement = "INSERT INTO workouts VALUES (NULL, ?, ?, $duration, 0)";
             $queryStatement = $this->databaseConnection->prepare($addWorkoutStatement);
             $queryStatement->bind_param('is', $params["userID"], $workoutName);
-            $queryStatement->execute();
+            if (!$queryStatement->execute()) {
+                echo json_encode(new Response(2, "Workout with this name already exists"));
+                die();
+            }
 
-            $workoutID = $this->getWorkoutID($requestBody->workoutName);
+            $workoutID = $this->getWorkoutID($workoutName);
             $this->addWorkoutExercisesAssociations($workoutID, $exercises);
 
             http_response_code(201);
@@ -520,6 +526,7 @@
             $addWorkoutAssociationStatement = rtrim($addWorkoutAssociationStatement, ',');
             $queryStatement = $this->databaseConnection->prepare($addWorkoutAssociationStatement);
             $queryStatement->execute();
+        
         }
 
         private function updateWorkoutExercises($workoutID, $exercises) {

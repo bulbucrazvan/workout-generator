@@ -48,11 +48,13 @@
 </html>
 
 <script src="/project/public/javascript/listbackgroundselector.js"></script>
-
+<script src="/project/public/javascript/cookieSetter.js"></script>
 <script src="/project/public/javascript/addexercisebutton.js"></script>
 
 <script>
-    var workout = decodeURI(`<?php echo $data ?>`);
+    var workout = decodeURIComponent(`<?php echo $data ?>`);
+    var userID = "<?php echo $_SESSION['SESSION_USER'];?>";
+    var loginKey = "<?php echo $_SESSION['LOGIN_KEY'];?>"
 </script>
 
 <script src="/project/public/javascript/workouts/create.js"></script>

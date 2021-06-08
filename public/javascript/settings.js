@@ -14,7 +14,7 @@ async function getUser() {
     });
     const responseBody = await response.json();
     if (responseBody["statusCode"]) {
-        document.cookie = "errorMessage=" + encodeURIComponent(responseBody["description"]) + "; path=/";
+        setCookie("errorMessage", encodeURIComponent(responseBody["description"]));
         window.location.href = "/project/public/errorMessage";
     }
     return responseBody["description"];
@@ -31,10 +31,6 @@ async function putUser(user) {
         body: JSON.stringify(user)
     });
     const responseBody = await response.json();
-    if (responseBody["statusCode"]) {
-        document.cookie = "errorMessage=" + encodeURIComponent(responseBody["description"]) + "; path=/";
-        window.location.href = "/project/public/errorMessage";
-    }
     return responseBody["description"];
 }
 
@@ -62,7 +58,7 @@ async function updateUserSettings() {
     data["newPassword"] = "";
     data["type"] = 0;
     var response = await putUser(data);
-    window.alert(response["description"]);
+    window.alert(response);
     await initializePage();
 }
 
@@ -93,7 +89,7 @@ async function updateAccountSettings() {
     }
     console.log(data);
     var response = await putUser(data);
-    window.alert(response["description"]);
+    window.alert(response);
     await initializePage();
 }
 

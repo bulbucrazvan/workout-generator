@@ -101,6 +101,11 @@
     }
 </style>
 
+<script>
+    var userID = "<?php echo $_SESSION['SESSION_USER'];?>";
+    var loginKey = "<?php echo $_SESSION['LOGIN_KEY'];?>"
+</script>
+
 <script src="/project/public/javascript/listbackgroundselector.js"></script>
 <script src="/project/public/javascript/admin/admin.js"></script>
 

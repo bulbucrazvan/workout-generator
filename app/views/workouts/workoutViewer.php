@@ -53,6 +53,7 @@
     var workoutID = "<?php echo $data;?>";
 </script>
 
+<script src="/project/public/javascript/cookieSetter.js"></script>
 <script src="/project/public/javascript/listbackgroundselector.js"></script>
 
 <script src="/project/public/javascript/addexercisebutton.js"></script>

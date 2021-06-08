@@ -117,6 +117,7 @@
     var loginKey = "<?php echo $_SESSION['LOGIN_KEY'];?>"
 </script>
 
+<script src="/project/public/javascript/cookieSetter.js"></script>
 <script src="/project/public/javascript/settings.js"></script>
 
 
