@@ -22,9 +22,10 @@
         </div>
         <div class="main-bubble__area main-bubble__area--exercise-description-area">
             <div class="exercise-description exercise-description__video-half">
-                <video class="video-half__video" controls>
-                    <source src="https://www.youtube.com/watch?v=XIMLoLxmTDw">
-                </video>
+                
+                <iframe class="video-half__video" controls
+                    src="https://www.youtube.com/embed/<?php echo $data['videoURL']?>">
+                </iframe>
                 <div class="video-half__description">
                     <div> Location: 
                         <p>

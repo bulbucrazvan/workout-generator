@@ -73,7 +73,7 @@ function showExercise(exercise) {
     document.getElementById('exerciseName').innerHTML = exercise['name'];
     document.getElementById('exerciseInstructions').innerHTML = exercise['instructions'];
     document.getElementById('remainingTime').innerHTML = exercise['duration'];
-    document.getElementById('videoURL').src = exercise['videoURL'];
+    document.getElementById('videoURL').src = "https://www.youtube.com/embed/" + exercise['videoURL'];
 }
 
 function showButtons(exerciseIndex) {

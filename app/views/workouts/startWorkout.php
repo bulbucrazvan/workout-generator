@@ -24,9 +24,8 @@
         </div>
         <div class="main-bubble__area main-bubble__area--exercise-description-area">
             <div class="exercise-description exercise-description__video-half">
-                <video class="video-half__video" controls>
-                    <source id="videoURL">
-                </video>
+                <iframe id="videoURL" class="video-half__video" controls>
+                </iframe>
                 <div class="video-half__controls">
                     <p> Time remaining: </p>
                     <p id="remainingTime"> 40 s</p>
